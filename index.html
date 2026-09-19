@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>邢浩哲 · AI Agent 工程师</title>
+<meta name="description" content="邢浩哲的个人主页 — AI Agent 工程师、技术作者，复旦硕士，专注于 LLM Agent、推荐系统与计算机视觉。" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --paper: #F4F6F8;
+    --card: #FFFFFF;
+    --ink: #0F1D2E;
+    --body-c: #3E4C5E;
+    --muted: #6B7A8D;
+    --navy: #1E3D59;
+    --navy-2: #2B587E;
+    --teal: #0E8C7F;
+    --teal-soft: #E2F2EF;
+    --amber: #C77D0A;
+    --amber-soft: #FBF0DC;
+    --line: #D9E0E8;
+    --mono: "SF Mono", "JetBrains Mono", "Menlo", "Consolas", monospace;
+    --display: "Songti SC", "STSong", "Noto Serif SC", "SimSun", Georgia, serif;
+    --sans: "PingFang SC", "Microsoft YaHei", -apple-system, "Helvetica Neue", sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+
+  ::selection { background: var(--teal); color: #fff; }
+
+  a { color: var(--navy-2); text-decoration: none; }
+  a:hover { color: var(--teal); }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  /* ============ 顶部导航 ============ */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(244, 246, 248, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    font-family: var(--mono); font-weight: 700; font-size: 15px;
+    color: var(--ink); letter-spacing: 1px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo:hover { color: var(--ink); }
+  .logo-mark {
+    width: 26px; height: 26px; border: 2px solid var(--navy);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--navy); border-radius: 4px;
+  }
+  .nav-links { display: flex; gap: 4px; align-items: center; }
+  .nav-links a {
+    font-size: 13.5px; color: var(--body-c); padding: 6px 12px;
+    border-radius: 6px; transition: all .2s;
+  }
+  .nav-links a:hover { color: var(--navy); background: #E9EEF3; }
+  .nav-links a.nav-cta {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+    color: #fff; background: var(--navy); margin-left: 8px;
+  }
+  .nav-links a.nav-cta:hover { background: var(--teal); color: #fff; }
+
+  @media (max-width: 720px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  /* ============ Hero ============ */
+  .hero {
+    position: relative; overflow: hidden;
+    background:
+      linear-gradient(to right, rgba(30,61,89,0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(30,61,89,0.045) 1px, transparent 1px),
+      var(--paper);
+    background-size: 36px 36px, 36px 36px, auto;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-inner {
+    display: grid; grid-template-columns: 1.25fr .85fr;
+    gap: 48px; align-items: center;
+    padding: 72px 0 60px;
+  }
+  @media (max-width: 880px) {
+    .hero-inner { grid-template-columns: 1fr; padding: 48px 0 44px; gap: 40px; }
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+    color: var(--teal); letter-spacing: 2.5px;
+    display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 34px; height: 2px; background: var(--teal);
+  }
+
+  .hero-name {
+    font-family: var(--display);
+    font-size: clamp(52px, 7.5vw, 84px);
+    font-weight: 900; line-height: 1.08; letter-spacing: 6px;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .hero-name .en {
+    display: block; font-family: var(--mono); font-size: 15px;
+    font-weight: 500; letter-spacing: 5px; color: var(--muted);
+    margin-top: 10px; letter-spacing: 4px;
+  }
+
+  .hero-title {
+    font-size: 18px; color: var(--navy); font-weight: 700; margin: 14px 0 20px;
+    line-height: 1.6;
+  }
+  @media (max-width: 560px) { .hero-title { font-size: 15.5px; } }
+  .hero-title .sep { color: var(--line); margin: 0 10px; font-weight: 400; }
+
+  .hero-bio {
+    font-size: 15.5px; color: var(--body-c); max-width: 540px;
+    margin-bottom: 28px;
+  }
+  .hero-bio b { color: var(--ink); }
+
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .chip {
+    font-size: 12.5px; font-weight: 600; color: var(--navy);
+    background: #fff; border: 1px solid var(--line);
+    padding: 5px 13px; border-radius: 100px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+  .chip.gold .dot { background: var(--amber); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden;
+  }
+  @media (max-width: 560px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat { background: #fff; padding: 16px 18px; }
+  .stat-num {
+    font-family: var(--mono); font-size: 26px; font-weight: 700;
+    color: var(--navy); line-height: 1.15;
+  }
+  .stat-num small { font-size: 14px; color: var(--teal); font-weight: 700; }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* 照片制图框 */
+  .photo-block { position: relative; justify-self: center; }
+  .photo-frame {
+    width: min(300px, 76vw); position: relative;
+    background: #fff; padding: 14px;
+    border: 1px solid var(--navy);
+    box-shadow: 8px 8px 0 rgba(30, 61, 89, 0.12);
+    transform: rotate(1.5deg);
+  }
+  .photo-frame img {
+    width: 100%; display: block; aspect-ratio: 3/3.9; object-fit: cover;
+    filter: saturate(0.92);
+  }
+  .photo-frame::before, .photo-frame::after,
+  .photo-frame .corner-b::before, .photo-frame .corner-b::after {
+    content: ""; position: absolute; width: 16px; height: 16px;
+    border: 2.5px solid var(--teal); z-index: 2;
+  }
+  .photo-frame::before { top: -7px; left: -7px; border-right: none; border-bottom: none; }
+  .photo-frame::after { top: -7px; right: -7px; border-left: none; border-bottom: none; }
+  .photo-frame .corner-b::before { bottom: -7px; left: -7px; border-right: none; border-top: none; }
+  .photo-frame .corner-b::after { bottom: -7px; right: -7px; border-left: none; border-top: none; }
+  .photo-caption {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    margin-top: 10px; display: flex; justify-content: space-between;
+    letter-spacing: 0.5px;
+  }
+  .photo-caption b { color: var(--navy); font-weight: 700; }
+  .photo-dim {
+    position: absolute; right: -34px; top: 0; bottom: 0;
+    display: flex; flex-direction: column; align-items: center;
+    font-family: var(--mono); font-size: 10px; color: var(--muted);
+  }
+  .photo-dim::before, .photo-dim::after {
+    content: ""; flex: 1; width: 1px; background: var(--muted);
+  }
+  .photo-dim span {
+    writing-mode: vertical-rl; padding: 6px 0; letter-spacing: 2px;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+  }
+  @media (max-width: 880px) { .photo-dim { display: none; } }
+
+  .photo-tag {
+    position: absolute; left: -18px; bottom: 34px;
+    background: var(--navy); color: #fff;
+    font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+    padding: 7px 14px; border-radius: 4px;
+    box-shadow: 4px 4px 0 rgba(30, 61, 89, 0.18);
+    transform: rotate(-2deg);
+  }
+  .photo-tag::before { content: "▸ "; color: #7FD8CB; }
+
+  /* ============ Agent 生产线（签名元素） ============ */
+  .pipeline-band {
+    background: var(--navy); color: #fff;
+    border-bottom: 1px solid var(--navy);
+    position: relative; overflow: hidden;
+  }
+  .pipeline-band::before {
+    content: ""; position: absolute; inset: 0; opacity: .35;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .pipeline-inner { position: relative; padding: 40px 0 44px; }
+
+  .pipeline-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px; margin-bottom: 8px;
+  }
+  .pipeline-head h2 {
+    font-size: 21px; font-weight: 800; letter-spacing: 1px;
+  }
+  .pipeline-head .mono-note {
+    font-family: var(--mono); font-size: 12px; color: #9DBBCE; letter-spacing: 1px;
+  }
+
+  .pipeline-desc {
+    color: #C6D6E2; font-size: 14px; max-width: 640px; margin-bottom: 26px;
+  }
+
+  .pipeline-svg-wrap { margin: 0 -8px; overflow-x: auto; max-width: 100%; }
+  .pipeline-svg-wrap svg { width: 100%; min-width: 720px; height: auto; display: block; }
+
+  .pl-node-label { font-family: var(--sans); font-size: 13px; font-weight: 700; fill: #fff; }
+  .pl-node-sub { font-family: var(--mono); font-size: 9.5px; fill: #8FB0C6; letter-spacing: 1px; }
+  .pl-metric-label { font-family: var(--mono); font-size: 10.5px; fill: #C6D6E2; }
+  .pl-metric-val { font-family: var(--mono); font-size: 13px; font-weight: 700; fill: #7FD8CB; }
+  .pl-metric-val.warn { fill: #F0C36A; }
+
+  /* ============ 通用 Section ============ */
+  .section { padding: 84px 0 20px; }
+  .section-head { margin-bottom: 40px; }
+  .section-eyebrow {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+    color: var(--teal); letter-spacing: 2.5px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-eyebrow::after {
+    content: ""; flex: 1; max-width: 64px; height: 1px; background: var(--teal);
+    opacity: .5;
+  }
+  .section-title {
+    font-family: var(--display); font-size: clamp(30px, 4vw, 42px);
+    font-weight: 900; color: var(--ink); letter-spacing: 3px; line-height: 1.2;
+  }
+  .section-title .en-sub {
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    color: var(--muted); letter-spacing: 3px; margin-left: 16px;
+  }
+
+  /* ============ 关于 ============ */
+  .about-grid {
+    display: grid; grid-template-columns: 1.15fr .85fr; gap: 32px;
+    align-items: stretch;
+  }
+  @media (max-width: 880px) { .about-grid { grid-template-columns: 1fr; } }
+
+  .about-card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 32px 34px;
+  }
+  .about-card p { font-size: 15px; color: var(--body-c); margin-bottom: 14px; }
+  .about-card p:last-child { margin-bottom: 0; }
+  .about-card b { color: var(--ink); }
+  .about-card .hl {
+    background: linear-gradient(transparent 62%, var(--teal-soft) 62%);
+    font-weight: 700; color: var(--ink);
+  }
+
+  .now-card {
+    background: var(--navy); color: #fff; border-radius: 14px;
+    padding: 30px 32px; position: relative; overflow: hidden;
+  }
+  .now-card::after {
+    content: "NOW"; position: absolute; right: -8px; bottom: -22px;
+    font-family: var(--mono); font-size: 88px; font-weight: 800;
+    color: rgba(255,255,255,0.055); letter-spacing: 4px;
+  }
+  .now-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+    color: #7FD8CB; letter-spacing: 2px; margin-bottom: 16px;
+  }
+  .now-label .live-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #7FD8CB;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(127, 216, 203, 0.5); }
+    70% { box-shadow: 0 0 0 9px rgba(127, 216, 203, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(127, 216, 203, 0); }
+  }
+  .now-item { padding: 11px 0; border-bottom: 1px dashed rgba(255,255,255,0.16); }
+  .now-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .now-item .t {
+    font-size: 14.5px; font-weight: 700; margin-bottom: 2px;
+  }
+  .now-item .d { font-size: 13px; color: #B9CBDA; line-height: 1.6; }
+
+  .edu-mini { margin-top: 20px; }
+  .edu-row {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 10px;
+  }
+  .edu-row:last-child { margin-bottom: 0; }
+  .edu-badge {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: #fff; background: var(--navy); border-radius: 4px;
+    padding: 3px 9px; flex-shrink: 0;
+  }
+  .edu-badge.ug { background: var(--teal); }
+  .edu-info { flex: 1; min-width: 0; }
+  .edu-info .s { font-size: 14.5px; font-weight: 800; }
+  .edu-info .m { font-size: 12.5px; color: var(--muted); }
+  .edu-rank {
+    font-family: var(--mono); font-size: 12px; color: var(--amber);
+    font-weight: 700; text-align: right; flex-shrink: 0;
+  }
+  .edu-rank small { display: block; color: var(--muted); font-weight: 400; font-size: 10.5px; }
+  @media (max-width: 560px) {
+    .edu-row { flex-wrap: wrap; }
+    .edu-rank { text-align: left; width: 100%; }
+  }
+
+  /* 指标条形图 */
+  .metrics {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px; margin-top: 16px;
+  }
+  .metric-box {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 10px; padding: 13px 15px;
+  }
+  .metric-name {
+    font-size: 12px; font-weight: 700; color: var(--muted);
+    margin-bottom: 9px; letter-spacing: .5px;
+  }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-row .bl {
+    font-family: var(--mono); font-size: 10px; color: var(--muted);
+    width: 34px; flex-shrink: 0;
+  }
+  .bar-track { flex: 1; height: 9px; background: #E8EDF2; border-radius: 100px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 100px; }
+  .bar-fill.before { background: #AAB8C6; width: 0; transition: width 1.1s cubic-bezier(.2,.7,.3,1); }
+  .bar-fill.after { background: var(--teal); width: 0; transition: width 1.1s cubic-bezier(.2,.7,.3,1) .18s; }
+  .bar-fill.amber { background: var(--amber); }
+  .bar-row .bv {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--navy); flex-shrink: 0; min-width: 44px; text-align: right;
+  }
+  .metric-box.up-only .metric-name { display: flex; justify-content: space-between; }
+  .metric-box.up-only .up-val {
+    font-family: var(--mono); font-size: 16px; font-weight: 800; color: var(--teal);
+  }
+
+  /* ============ 真实新闻产出：可折叠自动轮播 ============ */
+  .news-strip-wrap {
+    border-top: 1px dashed var(--line);
+    background: linear-gradient(180deg, rgba(244,246,248,.4), rgba(244,246,248,0));
+    padding: 18px 0 26px;
+  }
+  /* 在双列项目卡里作为右侧列 */
+  .proj-feature.news-feature .news-strip-wrap {
+    border-top: none;
+    border-left: 1px dashed var(--line);
+    padding: 22px 24px 26px;
+    background: linear-gradient(135deg, rgba(244,246,248,.5), rgba(244,246,248,.15));
+  }
+  @media (max-width: 880px) {
+    .proj-feature.news-feature .news-strip-wrap {
+      border-left: none; border-top: 1px dashed var(--line);
+    }
+  }
+  .news-strip-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 30px 14px;
+  }
+  @media (max-width: 880px) { .news-strip-head { padding: 0 22px 12px; } }
+  .proj-feature.news-feature .news-strip-head { padding: 0 0 12px; }
+  .news-strip-head .ns-label {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--teal); letter-spacing: 2px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .news-strip-head .ns-label::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 3px rgba(14,140,127,0.18);
+  }
+  .ns-toggle {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    color: var(--muted); letter-spacing: 1px; cursor: pointer;
+    background: none; border: 1px solid var(--line); border-radius: 20px;
+    padding: 5px 14px; display: flex; align-items: center; gap: 6px;
+    transition: color .2s, border-color .2s;
+  }
+  .ns-toggle:hover { color: var(--teal); border-color: var(--teal); }
+  .ns-toggle .chev { transition: transform .35s ease; display: inline-block; }
+  .news-strip-wrap.collapsed .ns-toggle .chev { transform: rotate(-90deg); }
+
+  .news-carousel {
+    position: relative; margin: 0 30px;
+    border: 1px solid var(--line); border-radius: 12px;
+    overflow: hidden; background: var(--navy);
+  }
+  @media (max-width: 880px) { .news-carousel { margin: 0 22px; } }
+  .proj-feature.news-feature .news-carousel { margin: 0; }
+  .news-carousel .nc-track {
+    display: flex; transition: transform .55s cubic-bezier(.4,0,.2,1);
+  }
+  .news-carousel .news-card {
+    flex: 0 0 100%; min-width: 100%;
+    border: none; border-radius: 0;
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+  /* 双列项目卡里：上方图（16:9）下方文 */
+  .proj-feature.news-feature .news-carousel .news-card {
+    grid-template-columns: 1fr;
+  }
+  .proj-feature.news-feature .news-carousel .nc-img {
+    aspect-ratio: 16 / 9; min-height: 0;
+    border-right: none; border-bottom: 1px solid var(--line);
+  }
+  /* LLM Wiki：轮播在左、文字在右（与新闻卡左右交替） */
+  .proj-feature.news-feature.flip .proj-body { order: 2; }
+  .proj-feature.news-feature.flip .news-strip-wrap {
+    order: 1; border-left: none; border-right: 1px dashed var(--line);
+    background: linear-gradient(225deg, rgba(244,246,248,.5), rgba(244,246,248,.15));
+  }
+  @media (max-width: 880px) {
+    .proj-feature.news-feature.flip .proj-body { order: 0; }
+    .proj-feature.news-feature.flip .news-strip-wrap {
+      order: 0; border-right: none; border-top: 1px dashed var(--line);
+    }
+  }
+  @media (max-width: 720px) { .news-carousel .news-card { grid-template-columns: 1fr; } }
+  .news-carousel .nc-img {
+    aspect-ratio: auto; min-height: 240px; border-bottom: none;
+    border-right: 1px solid var(--line);
+  }
+  @media (max-width: 720px) {
+    .news-carousel .nc-img { aspect-ratio: 16/9; min-height: 0; border-right: none; border-bottom: 1px solid var(--line); }
+  }
+  .news-carousel .nc-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .news-carousel .nc-body { padding: 24px 26px; gap: 10px; }
+  @media (max-width: 720px) { .news-carousel .nc-body { padding: 16px 18px; } }
+  .news-carousel .nc-src {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    color: var(--teal); letter-spacing: 1.5px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .news-carousel .nc-src::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal); display: inline-block;
+  }
+  .news-carousel .nc-title {
+    font-family: var(--display); font-size: 20px; font-weight: 900;
+    line-height: 1.5; color: var(--ink);
+  }
+  @media (max-width: 720px) { .news-carousel .nc-title { font-size: 16px; } }
+  .news-carousel .nc-meta {
+    font-family: var(--mono); font-size: 10.5px; color: var(--muted);
+    letter-spacing: 1px; margin-top: auto; line-height: 1.8;
+  }
+  /* 指示点 + 前后箭头 */
+  .nc-dots {
+    display: flex; gap: 7px; align-items: center;
+    position: absolute; bottom: 14px; right: 18px; z-index: 3;
+  }
+  .nc-dots button {
+    width: 7px; height: 7px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--line); padding: 0; transition: all .25s;
+  }
+  .nc-dots button.on { background: var(--teal); width: 20px; border-radius: 4px; }
+  .nc-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.9); border: 1px solid var(--line);
+    cursor: pointer; font-size: 14px; color: var(--ink); line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, opacity .2s;
+  }
+  .nc-arrow:hover { background: #fff; }
+  .nc-arrow.prev { left: 12px; }
+  .nc-arrow.next { right: 12px; }
+  /* 折叠动画 */
+  .ns-fold {
+    display: grid; grid-template-rows: 1fr;
+    transition: grid-template-rows .45s cubic-bezier(.4,0,.2,1);
+  }
+  .ns-fold > .ns-fold-inner { overflow: hidden; min-height: 0; }
+  .news-strip-wrap.collapsed .ns-fold { grid-template-rows: 0fr; }
+  .news-strip-wrap.collapsed .ns-fold-inner { height: 0; }
+
+  /* ============ 项目 ============ */
+  .proj-feature {
+    display: grid; grid-template-columns: 1fr;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; overflow: hidden; margin-bottom: 22px;
+  }
+  /* 仍有 SVG 图的项目卡保持双列布局 */
+  .proj-feature.has-fig { grid-template-columns: 1fr 1fr; }
+  /* 新闻 Agent：左右双列（左描述 / 右真实产出轮播） */
+  .proj-feature.news-feature { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+  @media (max-width: 880px) {
+    .proj-feature, .proj-feature.has-fig, .proj-feature.news-feature { grid-template-columns: 1fr; }
+  }
+  .proj-feature.flip .proj-fig { order: 2; }
+  @media (max-width: 880px) { .proj-feature.flip .proj-fig { order: 0; } }
+
+  .proj-fig {
+    background: var(--navy); display: flex; align-items: center;
+    justify-content: center; padding: 26px; min-height: 280px; position: relative;
+    overflow: hidden;
+  }
+  .proj-fig::before {
+    content: ""; position: absolute; inset: 0; opacity: .5;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .proj-fig svg { width: 100%; max-width: 400px; height: auto; position: relative; }
+  .proj-fig .fig-tag {
+    position: absolute; top: 14px; left: 14px;
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    color: #7FD8CB; border: 1px solid rgba(127,216,203,0.4);
+    padding: 3px 10px; border-radius: 3px; letter-spacing: 1px;
+    background: rgba(14,140,127,0.12);
+  }
+
+  .proj-body { padding: 32px 34px; display: flex; flex-direction: column; }
+  .proj-kicker {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+    color: var(--teal); letter-spacing: 2px; margin-bottom: 10px;
+  }
+  .proj-body h3 {
+    font-family: var(--display); font-size: 25px; font-weight: 900;
+    letter-spacing: 1px; margin-bottom: 12px; line-height: 1.35;
+  }
+  .proj-body p { font-size: 14px; color: var(--body-c); flex: 1; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+  .ptag {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: var(--navy); background: var(--paper);
+    border: 1px solid var(--line); padding: 3px 10px; border-radius: 100px;
+  }
+  .ptag.hl { color: var(--amber); border-color: #EAD9B5; background: var(--amber-soft); }
+
+  .proj-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  @media (max-width: 980px) { .proj-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .proj-grid { grid-template-columns: 1fr; } }
+  .proj-card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 24px; display: flex;
+    flex-direction: column; transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .proj-card:hover {
+    transform: translateY(-4px); box-shadow: 0 14px 34px rgba(15,29,46,0.1);
+    border-color: var(--navy-2);
+  }
+  .proj-card .pc-icon {
+    width: 44px; height: 44px; border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; flex-shrink: 0;
+  }
+  .proj-card .pc-icon svg { width: 24px; height: 24px; }
+  .proj-card h4 { font-size: 16px; font-weight: 800; margin-bottom: 4px; line-height: 1.4; }
+  .proj-card .pc-meta {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--teal); margin-bottom: 10px; letter-spacing: .5px;
+  }
+  .proj-card p { font-size: 13.5px; color: var(--body-c); flex: 1; }
+
+  /* ============ 著作 ============ */
+  .books-hero {
+    display: grid; grid-template-columns: 340px 1fr; gap: 36px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; padding: 34px 36px; margin-bottom: 26px;
+    align-items: center;
+  }
+  @media (max-width: 880px) { .books-hero { grid-template-columns: 1fr; padding: 26px; } }
+
+  .shelf { position: relative; }
+  .shelf-books { display: flex; align-items: flex-end; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  @media (max-width: 880px) { .shelf-books { gap: 8px; } }
+  @media (max-width: 560px) {
+    .shelf-books { gap: 6px; transform: scale(.86); transform-origin: bottom center; }
+  }
+  .shelf-book {
+    border-radius: 5px 5px 2px 2px; position: relative;
+    box-shadow: 2px 0 6px rgba(15,29,46,0.14);
+    transition: transform .25s;
+    cursor: default; overflow: hidden; display: block;
+  }
+  .shelf-book:hover { transform: translateY(-8px) rotate(0deg) !important; }
+  .shelf-book img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .shelf-book .spine {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 7px;
+    background: linear-gradient(90deg, rgba(0,0,0,0.28), rgba(0,0,0,0.05));
+  }
+  .shelf-board {
+    height: 10px; margin-top: 6px; border-radius: 3px;
+    background: linear-gradient(var(--navy), #16334E);
+    box-shadow: 0 4px 8px rgba(15,29,46,0.18);
+  }
+  .shelf-glow {
+    position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%);
+    width: 86%; height: 16px;
+    background: radial-gradient(ellipse at center, rgba(30,61,89,0.16), transparent 70%);
+  }
+
+  .books-hero-copy .bh-eyebrow {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+    color: var(--teal); letter-spacing: 2px; margin-bottom: 10px;
+  }
+  .books-hero-copy h3 {
+    font-family: var(--display); font-size: 24px; font-weight: 900;
+    letter-spacing: 1px; margin-bottom: 10px;
+  }
+  .books-hero-copy p { font-size: 14px; color: var(--body-c); margin-bottom: 18px; }
+  .bh-stats { display: flex; flex-wrap: wrap; gap: 10px; }
+  .bh-stat {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 8px; padding: 9px 14px; text-align: center; min-width: 86px;
+  }
+  .bh-stat .n { font-family: var(--mono); font-size: 19px; font-weight: 800; color: var(--navy); }
+  .bh-stat .l { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  .book-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
+  }
+  @media (max-width: 980px) { .book-grid { grid-template-columns: 1fr; } }
+
+  .book-feature {
+    display: grid; grid-template-columns: 280px 1fr;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; overflow: hidden; margin-bottom: 22px;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .book-feature:hover {
+    transform: translateY(-4px); box-shadow: 0 14px 34px rgba(15,29,46,0.1);
+    border-color: var(--navy-2);
+  }
+  @media (max-width: 880px) { .book-feature { grid-template-columns: 1fr; } }
+  .book-feature-cover {
+    background: var(--paper); padding: 28px; display: flex;
+    align-items: center; justify-content: center;
+    border-right: 1px solid var(--line);
+  }
+  .book-feature-cover img {
+    width: 100%; max-width: 220px; height: auto; display: block;
+    border-radius: 4px 6px 6px 4px;
+    box-shadow: 5px 7px 18px rgba(15,29,46,0.28), 1px 1px 0 rgba(15,29,46,0.08);
+  }
+  .book-feature-body { padding: 30px 32px; display: flex; flex-direction: column; }
+  .book-feature-body .bf-shot { flex: 1; margin-bottom: 16px; }
+  .book-feature-body .bf-shot img {
+    width: 100%; height: auto; max-height: 360px; object-fit: contain;
+    display: block; border-radius: 6px;
+    box-shadow: 0 1px 0 rgba(15,29,46,0.08), 0 0 0 1px var(--line);
+    background: #fff;
+  }
+  .book-feature-body h3 {
+    font-family: var(--display); font-size: 26px; font-weight: 900;
+    letter-spacing: 1px; line-height: 1.35; margin-bottom: 6px;
+  }
+  .book-feature-body p { font-size: 14.5px; color: var(--body-c); margin-top: 14px; }
+  .book-feature-body .bf-sub {
+    font-family: var(--mono); font-size: 12px; font-weight: 700;
+    color: var(--teal); letter-spacing: .5px;
+  }
+  .book-feature-body .bf-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 13px; font-weight: 700;
+    color: var(--teal); margin-top: 14px;
+  }
+  .book-feature-body .bf-link:hover { text-decoration: underline; }
+  .book-feature-body .bf-tags {
+    display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px;
+    padding-top: 16px; border-top: 1px dashed var(--line);
+  }
+
+  .book-card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .book-card:hover {
+    transform: translateY(-4px); box-shadow: 0 14px 34px rgba(15,29,46,0.1);
+    border-color: var(--navy-2);
+  }
+
+  .book-shot {
+    background: #fff; border-bottom: 1px solid var(--line);
+    padding: 22px 26px 18px; position: relative;
+    display: grid; grid-template-columns: 118px 1fr; gap: 20px;
+    align-items: center;
+  }
+  @media (max-width: 560px) { .book-shot { grid-template-columns: 1fr; } }
+  .book-shot svg, .book-shot .shot-fig {
+    width: 100%; height: auto; max-height: 300px; display: block; margin: 0 auto;
+  }
+  .book-shot img {
+    width: 100%; height: auto; display: block;
+    border-radius: 4px;
+    box-shadow: 0 1px 0 rgba(15,29,46,0.08);
+  }
+  .book-shot > div:last-child img { object-fit: contain; }
+  .book-shot > div:last-child { position: relative; }
+  .book-cover-thumb {
+    width: 118px; border-radius: 4px 6px 6px 4px;
+    box-shadow: 3px 5px 14px rgba(15,29,46,0.22), 1px 1px 0 rgba(15,29,46,0.08);
+    display: block; position: relative; overflow: hidden;
+  }
+  .book-cover-thumb img { width: 100%; height: auto; display: block; }
+  .book-cover-thumb::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+    background: linear-gradient(90deg, rgba(0,0,0,0.3), rgba(0,0,0,0.04));
+    z-index: 1;
+  }
+  .cover-label {
+    font-family: var(--mono); font-size: 10px; color: var(--muted);
+    text-align: center; margin-top: 8px; letter-spacing: 1px;
+  }
+  @media (max-width: 560px) {
+    .book-cover-wrap { display: flex; justify-content: center; }
+    .book-shot { text-align: center; }
+  }
+  .shot-badge {
+    position: absolute; top: 12px; right: 12px;
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    color: var(--muted); background: var(--paper);
+    border: 1px solid var(--line); border-radius: 4px;
+    padding: 3px 9px; letter-spacing: 1px;
+  }
+
+  .book-body { padding: 24px 26px 26px; flex: 1; display: flex; flex-direction: column; }
+  .book-body h4 {
+    font-family: var(--display); font-size: 20px; font-weight: 900;
+    letter-spacing: .5px; line-height: 1.4; margin-bottom: 4px;
+  }
+  .book-sub {
+    font-family: var(--mono); font-size: 11.5px; color: var(--teal);
+    font-weight: 700; margin-bottom: 12px; letter-spacing: .5px;
+  }
+  .book-body p { font-size: 13.5px; color: var(--body-c); flex: 1; }
+  .book-facts {
+    display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px;
+    padding-top: 16px; border-top: 1px dashed var(--line);
+  }
+  .bfact {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: var(--navy); background: var(--paper);
+    border: 1px solid var(--line); padding: 3px 10px; border-radius: 100px;
+  }
+  .bfact.hl { color: var(--amber); border-color: #EAD9B5; background: var(--amber-soft); }
+  .book-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 12px; font-weight: 700;
+    color: var(--teal); margin-top: 14px;
+  }
+  .book-link:hover { text-decoration: underline; }
+
+  /* ============ 论文 ============ */
+  .pub-list { display: grid; gap: 12px; }
+  .pub-item {
+    display: flex; gap: 18px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 20px 24px;
+    transition: border-color .2s;
+  }
+  .pub-item:hover { border-color: var(--navy-2); }
+  .pub-rank {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 800;
+    color: #fff; border-radius: 5px; padding: 4px 10px;
+    flex-shrink: 0; margin-top: 3px; letter-spacing: 1px;
+  }
+  .pub-rank.sci1 { background: var(--amber); }
+  .pub-rank.ccfa { background: var(--navy); }
+  .pub-rank.ccfb { background: var(--teal); }
+  .pub-main { flex: 1; min-width: 0; }
+  .pub-title { font-size: 15px; font-weight: 800; line-height: 1.5; margin-bottom: 3px; }
+  .pub-title .en { font-family: Georgia, serif; font-style: italic; font-weight: 600; }
+  .pub-meta { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .pub-meta b { color: var(--teal); }
+  .pub-cite {
+    font-family: var(--mono); font-size: 12px; color: var(--amber);
+    font-weight: 700; text-align: right; flex-shrink: 0; margin-top: 3px;
+    white-space: nowrap;
+  }
+  @media (max-width: 560px) {
+    .pub-item { flex-wrap: wrap; }
+    .pub-cite { text-align: left; width: 100%; }
+  }
+
+  /* ============ 技能 ============ */
+  .skill-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
+  }
+  @media (max-width: 880px) { .skill-grid { grid-template-columns: 1fr; } }
+  .skill-cat {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 24px 26px;
+  }
+  .skill-cat-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+  }
+  .skill-cat-head .sc-ico {
+    width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .skill-cat-head .sc-ico svg { width: 18px; height: 18px; }
+  .skill-cat-head h4 { font-size: 16px; font-weight: 800; }
+  .skill-cats { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sk {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+    padding: 6px 13px; border-radius: 7px;
+    background: var(--paper); border: 1px solid var(--line); color: var(--ink);
+  }
+  .sk.core {
+    background: var(--navy); color: #fff; border-color: var(--navy);
+  }
+  .sk.warm {
+    background: var(--teal-soft); color: var(--teal); border-color: #C4E5DF;
+  }
+
+  /* ============ 荣誉 ============ */
+  .honor-wall {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  @media (max-width: 980px) { .honor-wall { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .honor-wall { grid-template-columns: 1fr; } }
+  .honor-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 20px; display: flex; align-items: center; gap: 14px;
+  }
+  .medal {
+    width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .medal svg { width: 20px; height: 20px; }
+  .medal.gold { background: var(--amber-soft); }
+  .medal.navy { background: #E5EDF4; }
+  .medal.teal { background: var(--teal-soft); }
+  .honor-card .h-top {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    letter-spacing: 1px; margin-bottom: 2px;
+  }
+  .honor-card.national .h-top { color: var(--amber); }
+  .honor-card.prov .h-top { color: var(--teal); }
+  .honor-card .h-name { font-size: 14px; font-weight: 700; line-height: 1.4; }
+  .honor-card .h-sub { font-size: 12px; color: var(--muted); }
+
+  .honor-more {
+    margin-top: 16px; text-align: center;
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ============ 联系 ============ */
+  .contact {
+    margin-top: 88px; background: var(--navy); color: #fff;
+    position: relative; overflow: hidden;
+  }
+  .contact::before {
+    content: ""; position: absolute; inset: 0; opacity: .4;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .contact-inner {
+    position: relative; padding: 72px 0 64px; text-align: center;
+  }
+  .contact .c-eyebrow {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 700;
+    color: #7FD8CB; letter-spacing: 3px; margin-bottom: 16px;
+  }
+  .contact h2 {
+    font-family: var(--display); font-size: clamp(30px, 4.5vw, 46px);
+    font-weight: 900; letter-spacing: 4px; margin-bottom: 14px;
+  }
+  .contact p { color: #B9CBDA; font-size: 15px; max-width: 460px; margin: 0 auto 36px; }
+  .contact-actions {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  }
+  .c-btn {
+    font-family: var(--mono); font-size: 13.5px; font-weight: 700;
+    padding: 13px 26px; border-radius: 9px; letter-spacing: 1px;
+    display: inline-flex; align-items: center; gap: 9px;
+    transition: transform .2s, background .2s;
+  }
+  .c-btn:hover { transform: translateY(-2px); }
+  .c-btn.primary { background: #fff; color: var(--navy); }
+  .c-btn.primary:hover { background: #7FD8CB; color: var(--navy); }
+  .c-btn.ghost { border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
+  .c-btn.ghost:hover { border-color: #7FD8CB; color: #7FD8CB; }
+  .c-btn svg { width: 15px; height: 15px; }
+
+  footer {
+    background: #14293D; color: #7E95A9;
+    font-family: var(--mono); font-size: 11.5px; text-align: center;
+    padding: 22px 0; letter-spacing: 1px;
+  }
+  footer a { color: #A8BFD2; }
+
+  /* ============ 动效 ============ */
+  .reveal {
+    opacity: 0; transform: translateY(26px);
+    transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  a:focus-visible, .c-btn:focus-visible {
+    outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .bar-fill { transition: none; }
+    .now-label .live-dot { animation: none; }
+    .pl-pulse, .pl-flow { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 导航 ============ -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top">
+      <span class="logo-mark">HZ</span>XING&nbsp;HAOZHE
+    </a>
+    <div class="nav-links">
+      <a href="#about">关于</a>
+      <a href="#projects">项目</a>
+      <a href="#books">著作</a>
+      <a href="#pubs">论文</a>
+      <a href="#skills">技能</a>
+      <a href="#honors">荣誉</a>
+      <a class="nav-cta" href="简历.pdf" target="_blank">简历.pdf ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ Hero ============ -->
+<header class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-eyebrow">AI AGENT · LLM · 计算机视觉</div>
+      <h1 class="hero-name">
+        邢浩哲
+        <span class="en">XING HAOZHE · 上海</span>
+      </h1>
+      <div class="hero-title">
+        AI Agent 工程师 · 技术作者<span class="sep">/</span>复旦大学 计算机应用技术 硕士
+      </div>
+      <p class="hero-bio">
+        正在构建<b>大模型驱动的新闻生产 Agent</b> —— 从话题筛选、资讯聚合、内容生成到审核配图的全链路系统。
+        相信 <b>Agent 是软件的新形态</b>，喜欢把研究论文变成跑在线上的服务。
+      </p>
+      <div class="hero-chips">
+        <span class="chip"><span class="dot"></span>Agent 系统设计</span>
+        <span class="chip"><span class="dot"></span>RAG / DPO / LLM-as-a-Judge</span>
+        <span class="chip"><span class="dot"></span>推荐系统</span>
+        <span class="chip gold"><span class="dot"></span>SCI 一区一作 · 引用 130+</span>
+        <span class="chip"><span class="dot"></span>5 本技术著作</span>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num"><span data-count="512">0</span><small>+</small></div>
+          <div class="stat-label">GitHub Stars</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="5">0</span><small> 本</small></div>
+          <div class="stat-label">技术著作</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="130">0</span><small>+</small></div>
+          <div class="stat-label">论文引用</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1<small>/29</small></div>
+          <div class="stat-label">硕士专业排名</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-block">
+      <div class="photo-frame">
+        <span class="corner-b"></span>
+        <img src="img.png" alt="邢浩哲" />
+        <div class="photo-caption">
+          <span><b>fig.01</b> — 邢浩哲</span>
+          <span>SHANGHAI, CN</span>
+        </div>
+        <div class="photo-tag">AGENT ENGINEER</div>
+      </div>
+      <div class="photo-dim"><span>SCALE 1:1</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ Agent 生产线 ============ -->
+<section class="pipeline-band">
+  <div class="wrap pipeline-inner">
+    <div class="pipeline-head">
+      <h2>正在做的事：一条 AI 新闻生产线</h2>
+      <span class="mono-note">AGENT SYSTEM · 2024 — NOW</span>
+    </div>
+    <p class="pipeline-desc">
+      我主导构建的全链路 AI 新闻生产 Agent。信源经过分级过滤进入流水线，大模型生成正文后经审核与配图，最终多模态分发 —— 下面这条链路完整覆盖了从原始资讯到成品的每一步。
+    </p>
+
+    <div class="pipeline-svg-wrap">
+      <svg viewBox="0 0 1064 210" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI 新闻生产 Agent 流水线示意图">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#5E88A8"/>
+          </marker>
+        </defs>
+
+        <!-- 连接线 -->
+        <g stroke="#43678A" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#arrow)">
+          <line x1="158" y1="76" x2="196" y2="76"/>
+          <line x1="322" y1="76" x2="360" y2="76"/>
+          <line x1="486" y1="76" x2="524" y2="76"/>
+          <line x1="650" y1="76" x2="688" y2="76"/>
+          <line x1="814" y1="76" x2="852" y2="76"/>
+        </g>
+
+        <!-- 流动粒子 -->
+        <g class="pl-flow">
+          <circle r="4" fill="#7FD8CB">
+            <animateMotion dur="2.4s" repeatCount="indefinite" path="M60,76 L852,76"/>
+          </circle>
+          <circle r="3" fill="#F0C36A" opacity="0.9">
+            <animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M60,76 L852,76"/>
+          </circle>
+        </g>
+
+        <!-- 节点 1: 信源 -->
+        <g>
+          <circle cx="60" cy="76" r="44" fill="#16334E" stroke="#43678A" stroke-width="1.5" class="pl-pulse"/>
+          <g stroke="#7FD8CB" stroke-width="2.4" stroke-linecap="round" fill="none">
+            <circle cx="52" cy="66" r="7"/>
+            <line x1="57" y1="71" x2="70" y2="84"/>
+            <path d="M46 92 h26" stroke="#43678A" stroke-width="1.6"/>
+            <path d="M52 87 h14" stroke="#43678A" stroke-width="1.6"/>
+          </g>
+          <text x="60" y="140" text-anchor="middle" class="pl-node-label">信源池</text>
+          <text x="60" y="156" text-anchor="middle" class="pl-node-sub">SOURCES</text>
+        </g>
+
+        <!-- 节点 2: 筛选 -->
+        <g>
+          <circle cx="258" cy="76" r="44" fill="#16334E" stroke="#43678A" stroke-width="1.5"/>
+          <g stroke="#7FD8CB" stroke-width="2.4" stroke-linecap="round" fill="none">
+            <path d="M242 64 h32 l-5 9 h-22 z" fill="#16334E"/>
+            <path d="M242 82 h32 l-5 9 h-22 z" fill="#16334E"/>
+          </g>
+          <text x="258" y="140" text-anchor="middle" class="pl-node-label">话题筛选 · 分级</text>
+          <text x="258" y="156" text-anchor="middle" class="pl-node-sub">FILTER · RANK</text>
+        </g>
+
+        <!-- 节点 3: 生成 -->
+        <g>
+          <circle cx="422" cy="76" r="44" fill="#0E8C7F" stroke="#7FD8CB" stroke-width="1.5"/>
+          <g stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <path d="M410 66 l28 10 -28 10 z" fill="#fff" stroke="none"/>
+            <path d="M438 66 v20" stroke-dasharray="3 4" stroke-width="1.8"/>
+          </g>
+          <text x="422" y="140" text-anchor="middle" class="pl-node-label">新闻生成</text>
+          <text x="422" y="156" text-anchor="middle" class="pl-node-sub">GENERATE</text>
+        </g>
+
+        <!-- 节点 4: 审核 -->
+        <g>
+          <circle cx="586" cy="76" r="44" fill="#16334E" stroke="#43678A" stroke-width="1.5"/>
+          <g stroke="#F0C36A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <path d="M586 60 l19 7 v13 c0 11 -8 17 -19 21 -11 -4 -19 -10 -19 -21 v-13 z"/>
+            <path d="M578 78 l6 6 11 -12"/>
+          </g>
+          <text x="586" y="140" text-anchor="middle" class="pl-node-label">内容审核 · RAG 校验</text>
+          <text x="586" y="156" text-anchor="middle" class="pl-node-sub">VERIFY</text>
+        </g>
+
+        <!-- 节点 5: 配图 -->
+        <g>
+          <circle cx="750" cy="76" r="44" fill="#16334E" stroke="#43678A" stroke-width="1.5"/>
+          <g stroke="#7FD8CB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <rect x="734" y="62" width="32" height="26" rx="3"/>
+            <circle cx="743" cy="70" r="2.6" fill="#7FD8CB" stroke="none"/>
+            <path d="M734 84 l9 -8 7 6 6 -5 10 7"/>
+          </g>
+          <text x="750" y="140" text-anchor="middle" class="pl-node-label">智能配图</text>
+          <text x="750" y="156" text-anchor="middle" class="pl-node-sub">SEARCH + GEN</text>
+        </g>
+
+        <!-- 节点 6: 分发 -->
+        <g>
+          <circle cx="914" cy="76" r="44" fill="#16334E" stroke="#43678A" stroke-width="1.5"/>
+          <g stroke="#7FD8CB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <rect x="902" y="58" width="24" height="36" rx="4"/>
+            <path d="M908 66 h12 M908 72 h12 M908 78 h7"/>
+            <path d="M934 68 l14 -8 v32 l-14 -8 z" fill="#16334E"/>
+          </g>
+          <text x="914" y="140" text-anchor="middle" class="pl-node-label">多模态分发</text>
+          <text x="914" y="156" text-anchor="middle" class="pl-node-sub">PUBLISH</text>
+        </g>
+
+        <!-- 底部指标 -->
+        <g>
+          <line x1="60" y1="182" x2="914" y2="182" stroke="#34597A" stroke-width="1"/>
+          <line x1="60" y1="178" x2="60" y2="186" stroke="#34597A" stroke-width="1.5"/>
+          <line x1="914" y1="178" x2="914" y2="186" stroke="#34597A" stroke-width="1.5"/>
+
+          <text x="150" y="200" class="pl-metric-label">优质信源占比</text>
+          <text x="150" y="176" class="pl-metric-val">≥ 90%</text>
+
+          <text x="420" y="200" class="pl-metric-label">幻觉率（RAG + 一致性校验）</text>
+          <text x="420" y="176" class="pl-metric-val warn">21–34% → &lt;10%</text>
+
+          <text x="700" y="200" class="pl-metric-label">正文评分（LLM-Judge / DPO / GEPA）</text>
+          <text x="700" y="176" class="pl-metric-val">−0.3 → 0.66</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<main>
+
+<!-- ============ 01 关于 ============ -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">01 / ABOUT</div>
+      <h2 class="section-title">关于我<span class="en-sub">WHO AM I</span></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <p>
+          我是邢浩哲，一名专注于大模型应用与知识工程的工程师。我的研究与工程轨迹横跨<span class="hl">计算机视觉</span>（伪装目标检测，SCI 一区一作）与<span class="hl">大模型应用</span>（Agent 系统、RAG、DPO 微调），习惯于「把论文变成系统」——
+          无论是全链路的 AI 新闻生产 Agent，还是一个自动生成算法讲解视频的 Skill。
+        </p>
+        <p>
+          长期维护开源项目<b>《从零开始学 Agent》</b>（GitHub 512 Star，23 章 / 188 页 / 330+ 原创 SVG），并撰写了<b>五本技术著作</b> —— 从 USACO 竞赛 C++ 到推荐系统双语知识库，把「写书」本身当作知识工程来做。也喜欢做完整闭环的独立产品：从产品设计、后端架构到前端可视化全部自己完成。
+        </p>
+      </div>
+
+      <div>
+        <div class="now-card reveal">
+          <div class="now-label"><span class="live-dot"></span>NOW · 此刻</div>
+          <div class="now-item">
+            <div class="t">探索资讯转视频</div>
+            <div class="d">基于 Remotion 把 AI 资讯自动转化为视频形态，扩展内容表达的边界。</div>
+          </div>
+          <div class="now-item">
+            <div class="t">打磨生成质量</div>
+            <div class="d">用 LLM-as-a-Judge、DPO 微调与 GEPA 持续压低幻觉、提升过审率。</div>
+          </div>
+          <div class="now-item">
+            <div class="t">写《从零开始学 Agent》</div>
+            <div class="d">面向中文社区的 Agent 系统化教程，GitHub 接近 500 Star，持续更新中。</div>
+          </div>
+        </div>
+
+        <div class="edu-mini reveal">
+          <div class="edu-row">
+            <span class="edu-badge">硕士</span>
+            <div class="edu-info">
+              <div class="s">复旦大学 <span style="font-weight:400;color:var(--muted);font-size:12.5px">计算机应用技术</span></div>
+              <div class="m">2021.09 — 2024.06 · 保研 · 上海市优秀毕业生</div>
+            </div>
+            <div class="edu-rank">1/29<small>GPA 3.75</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 项目 ============ -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">02 / PROJECTS</div>
+      <h2 class="section-title">精选项目<span class="en-sub">SELECTED WORK</span></h2>
+    </div>
+
+    <!-- 项目 0：新闻 Agent（核心代表作，左右布局：左描述 / 右真实产出轮播） -->
+    <div class="proj-feature news-feature reveal">
+      <div class="proj-body">
+        <div class="proj-kicker">AGENT SYSTEM · 全链路负责</div>
+        <h3>AI 新闻生产 Agent</h3>
+        <p>
+          主导构建「话题筛选 → 资讯过滤聚合 → 新闻生成 → 内容审核 → 智能配图（搜图+生图）→ 多模态分发」全链路 AI 新闻生产系统。构建资讯分级体系保障优质信源占比 ≥90%；通过 RAG 与一致性校验将幻觉率从 21–34% 压到 10% 以内；针对时间/人物幻觉与过度总结，用 LLM-as-a-Judge、DPO 微调、GEPA 把正文评分从 −0.3 提升到 0.66。正探索基于 Remotion 的资讯转视频能力。
+        </p>
+        <div class="proj-tags">
+          <span class="ptag">LLM Agent</span><span class="ptag">RAG</span><span class="ptag">DPO</span><span class="ptag">GEPA</span><span class="ptag">Remotion</span>
+          <span class="ptag hl">幻觉率 &lt;10%</span><span class="ptag hl">正文评分 −0.3 → 0.66</span>
+        </div>
+      </div>
+
+      <!-- 右侧真实产出轮播 -->
+      <div class="news-strip-wrap news-side-wrap" id="newsStrip">
+        <div class="news-strip-head">
+          <div class="ns-label">AGENT NEWS · 真实产出</div>
+          <button class="ns-toggle" aria-expanded="true">收起 <span class="chev">▾</span></button>
+        </div>
+        <div class="ns-fold">
+          <div class="ns-fold-inner">
+            <div class="news-carousel">
+              <div class="nc-track" id="ncTrack">
+                <div class="news-card">
+                  <div class="nc-img"><img src="news/cover-1.jpg" alt="国产大模型 MiniMax M2.7 正式开源"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">开源模型</div>
+                    <div class="nc-title">国产大模型 MiniMax M2.7 正式开源，定位于轻量化高效推理</div>
+                    <div class="nc-meta">AGENT PIPELINE · 信源过滤 → 生成 → 审核 → 配图</div>
+                  </div>
+                </div>
+                <div class="news-card">
+                  <div class="nc-img"><img src="news/cover-2.jpg" alt="智元机器人发布远征 A3 人形机器人"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">具身智能</div>
+                    <div class="nc-title">智元机器人发布远征 A3 人形机器人并完成首批交付</div>
+                    <div class="nc-meta">AGENT PIPELINE · 信源过滤 → 生成 → 审核 → 配图</div>
+                  </div>
+                </div>
+                <div class="news-card">
+                  <div class="nc-img"><img src="news/cover-3.jpg" alt="量子计算在硬件与算法领域同获突破"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">前沿科学</div>
+                    <div class="nc-title">量子计算在硬件与算法领域同获突破，大幅降低破解现有加密所需资源</div>
+                    <div class="nc-meta">AGENT PIPELINE · 信源过滤 → 生成 → 审核 → 配图</div>
+                  </div>
+                </div>
+                <div class="news-card">
+                  <div class="nc-img"><img src="news/cover-4.jpg" alt="我国最大规模科学智能计算集群在郑州投入使用"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">算力基建</div>
+                    <div class="nc-title">我国最大规模科学智能计算集群在郑州投入使用</div>
+                    <div class="nc-meta">AGENT PIPELINE · 信源过滤 → 生成 → 审核 → 配图</div>
+                  </div>
+                </div>
+                <div class="news-card">
+                  <div class="nc-img"><img src="news/cover-5.jpg" alt="力箭一号遥十二火箭成功一箭 8 星发射"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">航天动态</div>
+                    <div class="nc-title">力箭一号遥十二火箭成功一箭 8 星发射，正式拉开年度航班化序幕</div>
+                    <div class="nc-meta">AGENT PIPELINE · 信源过滤 → 生成 → 审核 → 配图</div>
+                  </div>
+                </div>
+              </div>
+              <button class="nc-arrow prev" id="ncPrev" aria-label="上一条">‹</button>
+              <button class="nc-arrow next" id="ncNext" aria-label="下一条">›</button>
+              <div class="nc-dots" id="ncDots"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 项目 1：LLM Wiki（真实内页截图轮播） -->
+    <div class="proj-feature reveal news-feature flip">
+      <div class="proj-body">
+        <div class="proj-kicker">INDEPENDENT · 独立开发</div>
+        <h3>LLM Wiki Knowledge Vault</h3>
+        <p>
+          Agent 驱动的知识库管理系统。以 mdBook 为底层存储与渲染引擎，把知识库抽象为「可检索、可阅读、可维护」的结构化书籍。设计暂存区/持久区双层内容治理机制，以全局 YAML 索引作为唯一真相来源；构建融合标签重叠、语义相关与类型亲和的自动分类管线，低置信度内容回退人工确认。已沉淀 6 个知识库、数百篇技术内容。
+        </p>
+        <div class="proj-tags">
+          <span class="ptag">mdBook</span><span class="ptag">Agent Workflow</span><span class="ptag">YAML Index</span>
+          <span class="ptag hl">6 个知识库</span><span class="ptag hl">数百篇归档</span>
+        </div>
+      </div>
+
+      <!-- 真实产出：6 个知识库的真实渲染界面，可折叠自动轮播 -->
+      <div class="news-strip-wrap" id="wikiStrip">
+        <div class="news-strip-head">
+          <div class="ns-label">KNOWLEDGE VAULT · 真实知识库界面</div>
+          <button class="ns-toggle" aria-expanded="true">收起界面示例 <span class="chev">▾</span></button>
+        </div>
+        <div class="ns-fold">
+          <div class="ns-fold-inner">
+            <div class="news-carousel">
+              <div class="nc-track" id="wikiTrack">
+                <div class="news-card">
+                  <div class="nc-img"><img src="books/agent-page.png" alt="从零开始学 Agent 内页"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">知识库 · AGENT</div>
+                    <div class="nc-title">从零开始学 Agent — 23 章 · 330+ SVG 图解</div>
+                    <div class="nc-meta">MDBOOK · 中英双语 · 188 页</div>
+                  </div>
+                </div>
+                <div class="news-card">
+                  <div class="nc-img"><img src="books/cpp-page.png" alt="C++ 数据结构内页"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">知识库 · C++</div>
+                    <div class="nc-title">C++ 数据结构与算法 — BFS / DFS 图解实战</div>
+                    <div class="nc-meta">MDBOOK · 代码 + 可视化</div>
+                  </div>
+                </div>
+                <div class="news-card">
+                  <div class="nc-img"><img src="books/usaaio-page.png" alt="USAAIO 内页"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">知识库 · USAAIO</div>
+                    <div class="nc-title">USAAIO Mastery — 从零到 AI 奥赛 · 51 篇 · 183 图</div>
+                    <div class="nc-meta">MDBOOK · 竞赛级体系</div>
+                  </div>
+                </div>
+                <div class="news-card">
+                  <div class="nc-img"><img src="books/funrec-page.png" alt="fun-rec 推荐系统内页"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">知识库 · RECSYS</div>
+                    <div class="nc-title">fun-rec 推荐系统 — 模型结构与排序详解</div>
+                    <div class="nc-meta">MDBOOK · 社区共建</div>
+                  </div>
+                </div>
+                <div class="news-card">
+                  <div class="nc-img"><img src="books/python-page.png" alt="Python 入门内页"></div>
+                  <div class="nc-body">
+                    <div class="nc-src">知识库 · PYTHON</div>
+                    <div class="nc-title">Python 入门 — 像计算机科学家一样思考 · 31 章</div>
+                    <div class="nc-meta">MDBOOK · 6 部分 · 27 图解</div>
+                  </div>
+                </div>
+              </div>
+              <button class="nc-arrow prev" id="wikiPrev" aria-label="上一本">‹</button>
+              <button class="nc-arrow next" id="wikiNext" aria-label="下一本">›</button>
+              <div class="nc-dots" id="wikiDots"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 项目 2 -->
+    <div class="proj-feature flip has-fig reveal">
+      <div class="proj-fig">
+        <span class="fig-tag">AUTOMATION · VIDEO</span>
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 胶片条 -->
+          <g>
+            <rect x="30" y="90" width="340" height="120" rx="8" fill="#16334E" stroke="#43678A" stroke-width="2"/>
+            <!-- 齿孔 -->
+            <g fill="#0F2233">
+              <rect x="42" y="98" width="10" height="8" rx="2"/><rect x="66" y="98" width="10" height="8" rx="2"/>
+              <rect x="90" y="98" width="10" height="8" rx="2"/><rect x="114" y="98" width="10" height="8" rx="2"/>
+              <rect x="138" y="98" width="10" height="8" rx="2"/><rect x="162" y="98" width="10" height="8" rx="2"/>
+              <rect x="186" y="98" width="10" height="8" rx="2"/><rect x="210" y="98" width="10" height="8" rx="2"/>
+              <rect x="234" y="98" width="10" height="8" rx="2"/><rect x="258" y="98" width="10" height="8" rx="2"/>
+              <rect x="282" y="98" width="10" height="8" rx="2"/><rect x="306" y="98" width="10" height="8" rx="2"/>
+              <rect x="42" y="192" width="10" height="8" rx="2"/><rect x="66" y="192" width="10" height="8" rx="2"/>
+              <rect x="90" y="192" width="10" height="8" rx="2"/><rect x="114" y="192" width="10" height="8" rx="2"/>
+              <rect x="138" y="192" width="10" height="8" rx="2"/><rect x="162" y="192" width="10" height="8" rx="2"/>
+              <rect x="186" y="192" width="10" height="8" rx="2"/><rect x="210" y="192" width="10" height="8" rx="2"/>
+              <rect x="234" y="192" width="10" height="8" rx="2"/><rect x="258" y="192" width="10" height="8" rx="2"/>
+              <rect x="282" y="192" width="10" height="8" rx="2"/><rect x="306" y="192" width="10" height="8" rx="2"/>
+            </g>
+            <!-- 帧 1: 题目 -->
+            <g>
+              <rect x="48" y="114" width="52" height="70" rx="3" fill="#0F2233" stroke="#43678A"/>
+              <text x="74" y="140" text-anchor="middle" font-family="Menlo,monospace" font-size="11" fill="#7FD8CB">题解</text>
+              <text x="74" y="156" text-anchor="middle" font-family="Menlo,monospace" font-size="8" fill="#8FB0C6">.md</text>
+            </g>
+            <!-- 帧 2: 分镜 -->
+            <g>
+              <rect x="108" y="114" width="52" height="70" rx="3" fill="#0F2233" stroke="#43678A"/>
+              <path d="M126 130 v38 M134 130 v38 M142 130 v24" stroke="#F0C36A" stroke-width="2" stroke-linecap="round"/>
+              <text x="134" y="178" text-anchor="middle" font-family="Menlo,monospace" font-size="8" fill="#8FB0C6">分镜</text>
+            </g>
+            <!-- 帧 3: 动画 -->
+            <g>
+              <rect x="168" y="114" width="52" height="70" rx="3" fill="#0F2233" stroke="#43678A"/>
+              <path d="M182 156 l12 -18 10 12 8 -8 10 14" stroke="#7FD8CB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="194" y="178" text-anchor="middle" font-family="Menlo,monospace" font-size="8" fill="#8FB0C6">Remotion</text>
+            </g>
+            <!-- 帧 4: 成片 -->
+            <g>
+              <rect x="228" y="114" width="52" height="70" rx="3" fill="#0E8C7F" stroke="#7FD8CB" stroke-width="1.6"/>
+              <path d="M248 138 v22 l18 -11 z" fill="#fff"/>
+              <text x="254" y="178" text-anchor="middle" font-family="Menlo,monospace" font-size="8" fill="#CDEEE8">成片</text>
+            </g>
+            <!-- 帧 5: QA -->
+            <g>
+              <rect x="288" y="114" width="52" height="70" rx="3" fill="#0F2233" stroke="#43678A"/>
+              <rect x="298" y="126" width="32" height="44" rx="3" stroke="#F0C36A" stroke-width="1.6"/>
+              <path d="M304 140 h20 M304 148 h20 M304 156 h12" stroke="#F0C36A" stroke-width="1.8" stroke-linecap="round"/>
+              <text x="314" y="178" text-anchor="middle" font-family="Menlo,monospace" font-size="8" fill="#8FB0C6">QA</text>
+            </g>
+          </g>
+          <!-- 音频波形 -->
+          <g stroke="#7FD8CB" stroke-width="2" stroke-linecap="round" opacity=".8">
+            <line x1="60" y1="242" x2="60" y2="252"/><line x1="70" y1="238" x2="70" y2="256"/>
+            <line x1="80" y1="244" x2="80" y2="250"/><line x1="90" y1="234" x2="90" y2="260"/>
+            <line x1="100" y1="240" x2="100" y2="254"/><line x1="110" y1="246" x2="110" y2="248"/>
+            <line x1="120" y1="236" x2="120" y2="258"/><line x1="130" y1="242" x2="130" y2="252"/>
+            <line x1="140" y1="238" x2="140" y2="256"/><line x1="150" y1="244" x2="150" y2="250"/>
+          </g>
+          <text x="166" y="252" font-family="Menlo,monospace" font-size="10" fill="#8FB0C6">TTS + 字幕</text>
+          <!-- 流程标注 -->
+          <text x="30" y="60" font-family="Menlo,monospace" font-size="10.5" fill="#7FD8CB">SCRIPT → STORYBOARD → ANIMATION → RENDER → QA</text>
+          <text x="30" y="282" font-family="Menlo,monospace" font-size="10" fill="#8FB0C6">过审率 ≈ </text>
+          <text x="102" y="282" font-family="Menlo,monospace" font-size="13" font-weight="700" fill="#F0C36A">80%</text>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <div class="proj-kicker">INDEPENDENT · 独立开发</div>
+        <h3>Algorithm Explain Skill</h3>
+        <p>
+          算法题讲解视频的自动化生产系统：从题目解析、分镜脚本、动画组件到成片交付全流程自动化。一键生成 Remotion 工程骨架、题解 Markdown、分镜配置与 React 动画片段；结合 TTS 与 FFmpeg 实现语音合成、音画同步、字幕与渲染合成。内置 QA 机制，自动检测关键帧内容占比、画面留白与字幕长度并生成报告。
+        </p>
+        <div class="proj-tags">
+          <span class="ptag">Remotion</span><span class="ptag">TTS</span><span class="ptag">FFmpeg</span><span class="ptag">React</span>
+          <span class="ptag hl">过审率 ~80%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 项目 3 -->
+    <div class="proj-feature has-fig reveal">
+      <div class="proj-fig">
+        <span class="fig-tag">FULL-STACK · EDUCATION</span>
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 学习路径 -->
+          <path d="M50 220 C 110 220 110 150 170 150 S 240 80 310 80" stroke="#43678A" stroke-width="2.4" stroke-dasharray="6 6" fill="none"/>
+          <!-- 节点 -->
+          <g>
+            <circle cx="50" cy="220" r="20" fill="#16334E" stroke="#43678A" stroke-width="2"/>
+            <text x="50" y="226" text-anchor="middle" font-family="Menlo,monospace" font-size="11" fill="#8FB0C6">诊断</text>
+          </g>
+          <g>
+            <circle cx="170" cy="150" r="20" fill="#16334E" stroke="#43678A" stroke-width="2"/>
+            <text x="170" y="156" text-anchor="middle" font-family="Menlo,monospace" font-size="11" fill="#8FB0C6">规划</text>
+          </g>
+          <g>
+            <circle cx="310" cy="80" r="22" fill="#0E8C7F" stroke="#7FD8CB" stroke-width="2"/>
+            <path d="M301 80 l6 6 12 -13" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <!-- 里程碑小点 -->
+          <g fill="#2B587E">
+            <circle cx="106" cy="188" r="5"/>
+            <circle cx="228" cy="112" r="5"/>
+          </g>
+          <!-- 仪表盘卡片 -->
+          <g>
+            <rect x="42" y="44" width="130" height="66" rx="8" fill="#16334E" stroke="#43678A" stroke-width="1.6"/>
+            <text x="54" y="62" font-family="Menlo,monospace" font-size="9" fill="#8FB0C6">掌握度 DASHBOARD</text>
+            <rect x="54" y="70" width="106" height="7" rx="3.5" fill="#0F2233"/>
+            <rect x="54" y="70" width="76" height="7" rx="3.5" fill="#7FD8CB"/>
+            <rect x="54" y="84" width="106" height="7" rx="3.5" fill="#0F2233"/>
+            <rect x="54" y="84" width="42" height="7" rx="3.5" fill="#F0C36A"/>
+            <text x="54" y="104" font-family="Menlo,monospace" font-size="8.5" fill="#8FB0C6">ECharts · Vue 3</text>
+          </g>
+          <!-- 错题本卡片 -->
+          <g>
+            <rect x="232" y="176" width="126" height="72" rx="8" fill="#16334E" stroke="#43678A" stroke-width="1.6"/>
+            <text x="244" y="194" font-family="Menlo,monospace" font-size="9" fill="#8FB0C6">错题本 · LLM 错因分析</text>
+            <path d="M250 208 h40" stroke="#E06C6C" stroke-width="2.4" stroke-linecap="round"/>
+            <text x="250" y="222" font-family="Menlo,monospace" font-size="8.5" fill="#8FB0C6">边界条件遗漏</text>
+            <path d="M296 234 l4 4 7 -8" stroke="#7FD8CB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <!-- 标注 -->
+          <text x="46" y="270" font-family="Menlo,monospace" font-size="10" fill="#8FB0C6">54 知识点</text>
+          <text x="140" y="270" font-family="Menlo,monospace" font-size="10" fill="#8FB0C6">81 前置关系</text>
+          <text x="246" y="270" font-family="Menlo,monospace" font-size="10" fill="#8FB0C6">在线判题</text>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <div class="proj-kicker">INDEPENDENT · 独立开发</div>
+        <h3>Coding AI Learning Coach</h3>
+        <p>
+          面向竞赛编程的智能学习平台，覆盖能力诊断、学习路线生成、题库推荐、在线刷题判题与错题复盘全流程。后端 FastAPI + SQLModel，前端 Vue 3 + TypeScript + ECharts，接入 LLM 完成错因分析与推荐排序，沉淀 54 个知识点、81 条前置关系，形成「诊断 → 规划 → 练习 → 反馈 → 复盘」的完整闭环。
+        </p>
+        <div class="proj-tags">
+          <span class="ptag">FastAPI</span><span class="ptag">Vue 3</span><span class="ptag">TypeScript</span><span class="ptag">LLM</span>
+          <span class="ptag hl">54 知识点闭环</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 其他项目网格 -->
+    <div class="proj-grid">
+      <div class="proj-card reveal">
+        <div class="pc-icon" style="background:#E5EDF4;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1E3D59" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 s4 -7 10 -7 10 7 10 7 -4 7 -10 7 -10 -7 -10 -7 z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h4>伪装目标检测 · TCSVT</h4>
+        <div class="pc-meta">第一作者 · SCI 一区 · 引用 130+</div>
+        <p>提出 Search–Amplify–Recognize 三阶段检测网络与图底关系转换模块，在伪装目标检测及下游任务上大幅超越 SOTA，且可即插即用提升其他方法性能。</p>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="pc-icon" style="background:var(--teal-soft);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3 a9 9 0 0 1 9 9 l-9 0 z" fill="#0E8C7F" opacity=".3"/><path d="M12 3 v9 h9"/></svg>
+        </div>
+        <h4>仲景中医大语言模型</h4>
+        <div class="pc-meta">核心成员 · GitHub 100+ Star</div>
+        <p>知识增强的中西医大模型。Human-in-the-Loop 多轮交互合成高质量专业语料，融合中西医学与认知科学思路，基于 LLaMA2-7B 微调。</p>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="pc-icon" style="background:var(--amber-soft);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18 l-6 -6 6 -6"/><path d="M15 6 l6 6 -6 6"/></svg>
+        </div>
+        <h4>stemCoding · 儿童 AI 编程教育</h4>
+        <div class="pc-meta">国家级优秀大创 · 负责人</div>
+        <p>在 Scratch 基础上二次开发扩展代码库，儿童可通过 Scratch 交互式控制 Unity 中的足球机器人对战，极大增强编程教学的互动性。</p>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="pc-icon" style="background:#E5EDF4;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1E3D59" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7 V5 a2 2 0 0 1 2 -2 h4 a2 2 0 0 1 2 2 v2"/><circle cx="12" cy="13" r="3"/></svg>
+        </div>
+        <h4>移动端轻量化检测模型</h4>
+        <div class="pc-meta">国家自然科学基金 · 核心成员</div>
+        <p>针对移动端部署成本问题，调研业内领先模型并进行轻量化设计，运用 NNI 完成模型压缩与优化，覆盖显著性/伪装目标检测与舌苔检测。</p>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="pc-icon" style="background:var(--teal-soft);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20 h9"/><path d="M16.5 3.5 a2.12 2.12 0 0 1 3 3 L7 19 l-4 1 1 -4 z"/></svg>
+        </div>
+        <h4>多模态高精数据标注工具</h4>
+        <div class="pc-meta">负责人</div>
+        <p>引入灵活的 Mask 画笔与橡皮擦，显著提升细节丰富图像的预标注精度（如精确标注猫的胡须），告别逐点调整。</p>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="pc-icon" style="background:var(--amber-soft);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 l5 -5"/><path d="M14 4 l6 6 -9 9 -6 -6 z" opacity=".75"/><circle cx="18" cy="6" r="2.5" fill="#FBF0DC"/></svg>
+        </div>
+        <h4>更多项目</h4>
+        <div class="pc-meta">GitHub · Projects-Information</div>
+        <p>招聘网站、购物网站、疫情监测平台、简易 Excel 软件、页面置换算法微课辅助软件等。详见
+          <a href="https://github.com/Haozhe-Xing/Projects-Information" target="_blank" rel="noopener">GitHub 仓库 ↗</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03.5 著作 ============ -->
+<section class="section" id="books">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">03 / BOOKS</div>
+      <h2 class="section-title">技术著作<span class="en-sub">WRITING · 4 BOOKS</span></h2>
+    </div>
+
+    <!-- 书架 -->
+    <div class="books-hero reveal">
+      <div class="shelf">
+        <div class="shelf-books">
+          <a class="shelf-book" href="#book-agent" style="width:78px;height:108px;transform:rotate(-2deg)">
+            <span class="spine"></span>
+            <img src="books/cover-agent.svg" alt="从零开始学 Agent 封面" />
+          </a>
+          <a class="shelf-book" href="#book-cpp" style="width:74px;height:108px;transform:rotate(1deg)">
+            <span class="spine"></span>
+            <img src="books/cover-cpp.svg" alt="C++ for Competitive Programming 封面" />
+          </a>
+          <a class="shelf-book" href="#book-usaaio" style="width:74px;height:108px;transform:rotate(-1deg)">
+            <span class="spine"></span>
+            <img src="books/cover-usaaio.svg" alt="USAAIO Mastery 封面" />
+          </a>
+          <a class="shelf-book" href="#book-funrec" style="width:74px;height:108px;transform:rotate(1.5deg)">
+            <span class="spine"></span>
+            <img src="books/cover-funrec.svg" alt="推荐系统知识库封面" />
+          </a>
+          <a class="shelf-book" href="#book-python" style="width:74px;height:108px;transform:rotate(-1.5deg)">
+            <span class="spine"></span>
+            <img src="books/cover-python.svg" alt="Python 入门封面" />
+          </a>
+        </div>
+        <div class="shelf-glow"></div>
+        <div class="shelf-board"></div>
+      </div>
+      <div class="books-hero-copy">
+        <div class="bh-eyebrow">WRITING AS ENGINEERING</div>
+        <h3>把知识写成可检索的书</h3>
+        <p>
+          四本 mdBook 技术著作，覆盖<b>竞赛编程</b>、<b>AI 奥赛</b>、<b>推荐系统</b>与<b>Python 入门</b>。
+          每一本都是「结构化知识工程」：章节依赖图、术语表、SVG 图示、分层习题，以及面向 Agent 检索的机器可读索引。
+        </p>
+        <div class="bh-stats">
+          <div class="bh-stat"><div class="n">5</div><div class="l">本著作</div></div>
+          <div class="bh-stat"><div class="n">170+</div><div class="l">章节</div></div>
+          <div class="bh-stat"><div class="n">700+</div><div class="l">SVG 图示</div></div>
+          <div class="bh-stat"><div class="n">2</div><div class="l">门语言</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-feature reveal" id="book-agent">
+      <div class="book-feature-cover">
+        <img src="books/cover-agent.svg" alt="《从零开始学 Agent》封面" />
+      </div>
+      <div class="book-feature-body">
+        <div class="bf-sub">FLAGSHIP · 23 CHAPTERS · EN/中文</div>
+        <h3>从零开始学 Agent</h3>
+        <div class="bf-shot">
+          <img src="books/agent-page.png" alt="从零开始学 Agent 内页截图：Agent 架构核心章节" />
+        </div>
+        <p>
+          系统、全面、实战导向的 Agent 开发教程。从 LLM 基础到 ReAct、MemGPT、RAG、多智能体、Agentic RL —— <b>先讲机制再讲框架</b>，每章配有原创 SVG 架构图与可运行的 reference-agent（含工具、记忆、安全门、评估、FastAPI 与 16 个测试）。
+        </p>
+        <div class="bf-tags">
+          <span class="bfact hl">GitHub 512 Stars</span>
+          <span class="bfact">188 页每语种</span>
+          <span class="bfact">330+ SVG</span>
+          <span class="bfact">5 个交互 Demo</span>
+          <span class="bfact">reference-agent 可运行</span>
+        </div>
+        <a class="bf-link" href="https://haozhe-xing.github.io/agent_learning/zh/" target="_blank" rel="noopener">在线阅读 ↗</a>
+      </div>
+    </div>
+
+    <div class="book-grid">
+      <!-- C++ -->
+      <div class="book-card reveal" id="book-cpp">
+        <div class="book-shot">
+          <div>
+            <div class="book-cover-wrap"><span class="book-cover-thumb"><img src="books/cover-cpp.svg" alt="C++ for Competitive Programming 封面" /></span></div>
+            <div class="cover-label">COVER</div>
+          </div>
+          <div>
+            <span class="shot-badge">FIG. BFS 图论 · 内页</span>
+            <img src="books/cpp-page.png" alt="C++ 竞赛书内页截图：BFS 章节" />
+          </div>
+        </div>
+        <div class="book-body">
+          <h4>C++ for Competitive Programming</h4>
+          <div class="book-sub">FROM ZERO TO USACO GOLD · 8 PARTS / 31 CHAPTERS</div>
+          <p>
+            面向 USACO 竞赛的完整 C++ 教程：从第一个程序到 Gold 级问题，一条线性路径贯穿语法、数据结构与图论。每章配有带注释的可编译 C++17 代码、Easy/Medium/Hard 分层习题与 20+ 赛场模板，全部抽象算法都配 SVG 可视化。
+          </p>
+          <div class="book-facts">
+            <span class="bfact">150+ 代码示例</span>
+            <span class="bfact">130+ 习题</span>
+            <span class="bfact hl">55+ SVG 图示</span>
+            <span class="bfact">157 张图</span>
+          </div>
+          <a class="book-link" href="https://github.com/Haozhe-Xing/cpp-programing-book" target="_blank" rel="noopener">GitHub 仓库 ↗</a>
+        </div>
+      </div>
+
+      <!-- USAAIO -->
+      <div class="book-card reveal" id="book-usaaio">
+        <div class="book-shot">
+          <div>
+            <div class="book-cover-wrap"><span class="book-cover-thumb"><img src="books/cover-usaaio.svg" alt="USAAIO Mastery 封面" /></span></div>
+            <div class="cover-label">COVER</div>
+          </div>
+          <div>
+            <span class="shot-badge">FIG. 注意力机制 · 内页</span>
+            <img src="books/usaaio-page.png" alt="USAAIO 书内页截图：Transformer 注意力机制章节" />
+          </div>
+        </div>
+        <div class="book-body">
+          <h4>USAAIO Mastery: From Zero to AI Olympiad</h4>
+          <div class="book-sub">USA AI OLYMPIAD 完备备考指南 · 7 PARTS / 51 篇</div>
+          <p>
+            覆盖 USAAIO 官方大纲全部主题的教材：数学基础 → 机器学习 → 深度学习 → 计算机视觉 → Transformers → 生成式 AI。「视觉优先」的写法，每个概念配 SVG 图解；附 7 套 Colab 刷题集与 2 套全真模拟考（3 题 / 300 分 / 180 分钟）。
+          </p>
+          <div class="book-facts">
+            <span class="bfact">183 张可视化图</span>
+            <span class="bfact">7 套练习 + 2 模拟考</span>
+            <span class="bfact hl">官方大纲全覆盖</span>
+          </div>
+          <a class="book-link" href="https://github.com/Haozhe-Xing/usaaio-book" target="_blank" rel="noopener">GitHub 仓库 ↗</a>
+        </div>
+      </div>
+
+      <!-- FunRec -->
+      <div class="book-card reveal" id="book-funrec">
+        <div class="book-shot">
+          <div>
+            <div class="book-cover-wrap"><span class="book-cover-thumb"><img src="books/cover-funrec.svg" alt="推荐系统知识库封面" /></span></div>
+            <div class="cover-label">COVER</div>
+          </div>
+          <div>
+            <span class="shot-badge">FIG. 记忆 vs 泛化 · 内页</span>
+            <img src="books/funrec-page.png" alt="推荐系统知识库内页截图：Wide&amp;Deep 模型章节" />
+          </div>
+        </div>
+        <div class="book-body">
+          <h4>RecSys &amp; Computational Advertising KB</h4>
+          <div class="book-sub">推荐系统 × 计算广告 · 中英双语 · 12 PARTS / 69 篇</div>
+          <p>
+            为「自动研究」构建的双语知识库：判别式推荐（召回/排序/重排）、生成式推荐（语义 ID、HSTU、OneRec、扩散模型）与计算广告（拍卖机制、智能出价、反作弊）三条主线。每章是可精确引用的自包含单元；内置 llms.txt 与机器可读章节索引，供 Agent 高效检索。
+          </p>
+          <div class="book-facts">
+            <span class="bfact">600+ 术语表</span>
+            <span class="bfact">中英双语</span>
+            <span class="bfact hl">Agent 可检索索引</span>
+          </div>
+          <a class="book-link" href="https://haozhe-xing.github.io/fun-rec-mdbook/zh/" target="_blank" rel="noopener">在线阅读 ↗</a>
+        </div>
+      </div>
+
+      <!-- Python -->
+      <div class="book-card reveal" id="book-python">
+        <div class="book-shot">
+          <div>
+            <div class="book-cover-wrap"><span class="book-cover-thumb"><img src="books/cover-python.svg" alt="Python 入门封面" /></span></div>
+            <div class="cover-label">COVER</div>
+          </div>
+          <div>
+            <span class="shot-badge">FIG. 数据结构 · 内页</span>
+            <img src="books/python-page.png" alt="Python 入门书内页截图：数据结构章节" />
+          </div>
+        </div>
+        <div class="book-body">
+          <h4>Python 入门：像计算机科学家一样思考</h4>
+          <div class="book-sub">零基础中学生第一本书 · 6 篇 / 31 章</div>
+          <p>
+            为零基础中学生打造的 Python 第一本书，双引擎驱动：计算思维 + 算法启蒙。从变量、控制流到 Big-O、搜索排序、递归分治，最后落地到文字冒险、数据分析与算法擂台三个实战项目，为 USACO 与 AI/ML 路线打底。
+          </p>
+          <div class="book-facts">
+            <span class="bfact">27 张 SVG 图示</span>
+            <span class="bfact">3 个实战项目</span>
+            <span class="bfact hl">USACO Bronze → Silver 打底</span>
+          </div>
+          <a class="book-link" href="https://github.com/Haozhe-Xing/python-basic-book" target="_blank" rel="noopener">GitHub 仓库 ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 论文 ============ -->
+<section class="section" id="pubs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">04 / PUBLICATIONS</div>
+      <h2 class="section-title">论文发表<span class="en-sub">PUBLICATIONS</span></h2>
+    </div>
+    <div class="pub-list">
+      <div class="pub-item reveal">
+        <span class="pub-rank sci1">SCI 一区</span>
+        <div class="pub-main">
+          <div class="pub-title"><span class="en">Go Closer To See Better: Camouflaged Object Detection via Object Area Amplification and Figure-ground Conversion</span></div>
+          <div class="pub-meta">IEEE TCSVT · <b>第一作者</b></div>
+        </div>
+        <div class="pub-cite">cited by 130+</div>
+      </div>
+      <div class="pub-item reveal">
+        <span class="pub-rank ccfb">CCF-B</span>
+        <div class="pub-main">
+          <div class="pub-title">会议论文 · 第一作者</div>
+          <div class="pub-meta">计算机视觉方向 · <b>第一作者</b></div>
+        </div>
+        <div class="pub-cite">—</div>
+      </div>
+      <div class="pub-item reveal">
+        <span class="pub-rank ccfa">CCF-A ×2</span>
+        <div class="pub-main">
+          <div class="pub-title">会议论文两篇</div>
+          <div class="pub-meta">CCF-A 类会议 · <b>第二 / 第三作者</b></div>
+        </div>
+        <div class="pub-cite">—</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;" class="reveal">
+      <div class="proj-card" style="flex-direction:row;align-items:center;gap:18px;">
+        <div class="pc-icon" style="background:var(--teal-soft);margin-bottom:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5 -5 -2.5 -7 -3 m14 6 v-3.87 a3.37 3.37 0 0 0 -.94 -2.61 c3.14 -.35 6.44 -1.54 6.44 -7 A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1 S18.73 .65 16 2.48 a13.38 13.38 0 0 0 -7 0 C6.27 .65 5.09 1 5.09 1 A5.07 5.07 0 0 0 5 4.77 5.44 5.44 0 0 0 3.5 8.55 c0 5.42 3.3 6.61 6.44 7 A3.37 3.37 0 0 0 9 18.13 V22"/></svg>
+        </div>
+        <div>
+          <h4 style="font-size:16px;font-weight:800;">《从零开始学 Agent》开源教程</h4>
+          <p style="font-size:13.5px;color:var(--body-c);margin-top:4px;">
+            面向中文社区的 Agent 系统化学习路径，GitHub 接近 500 Star。
+            <a href="https://haozhe-xing.github.io/agent_learning/zh/" target="_blank" rel="noopener">在线阅读 ↗</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 技能 ============ -->
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">05 / STACK</div>
+      <h2 class="section-title">技能栈<span class="en-sub">TECH STACK</span></h2>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-cat reveal">
+        <div class="skill-cat-head">
+          <div class="sc-ico" style="background:#E5EDF4;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1E3D59" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 l-3 3 3 3 M16 9 l3 3 -3 3 M13 6 l-2 12"/></svg>
+          </div>
+          <h4>编程语言</h4>
+        </div>
+        <div class="skill-cats">
+          <span class="sk core">Python</span><span class="sk core">C++</span>
+          <span class="sk">Java</span><span class="sk">C#</span><span class="sk">C</span>
+          <span class="sk">HTML / CSS / JS</span>
+        </div>
+      </div>
+      <div class="skill-cat reveal">
+        <div class="skill-cat-head">
+          <div class="sc-ico" style="background:var(--teal-soft);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9 h6 v6 h-6 z" fill="#0E8C7F" opacity=".25"/><path d="M9 2 v2 M15 2 v2 M9 20 v2 M15 20 v2 M2 9 h2 M2 15 h2 M20 9 h2 M20 15 h2"/></svg>
+          </div>
+          <h4>深度学习 &amp; LLM</h4>
+        </div>
+        <div class="skill-cats">
+          <span class="sk core">PyTorch</span><span class="sk core">LLM Agent</span>
+          <span class="sk warm">RAG</span><span class="sk warm">DPO / LoRA</span>
+          <span class="sk">CLIP</span><span class="sk">Stable Diffusion</span>
+          <span class="sk">SAM</span><span class="sk">BERT</span><span class="sk">LLaMA</span>
+        </div>
+      </div>
+      <div class="skill-cat reveal">
+        <div class="skill-cat-head">
+          <div class="sc-ico" style="background:var(--amber-soft);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18 l6 -6 -6 -6 M8 6 l-6 6 6 6"/></svg>
+          </div>
+          <h4>工程 &amp; 开发</h4>
+        </div>
+        <div class="skill-cats">
+          <span class="sk core">FastAPI</span>
+          <span class="sk">Vue</span><span class="sk">React</span>
+          <span class="sk warm">Remotion</span><span class="sk">Unity</span>
+          <span class="sk">MySQL</span><span class="sk">WebSocket</span>
+        </div>
+      </div>
+      <div class="skill-cat reveal">
+        <div class="skill-cat-head">
+          <div class="sc-ico" style="background:#E5EDF4;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1E3D59" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12 h18 M12 3 a15 15 0 0 1 0 18 a15 15 0 0 1 0 -18"/></svg>
+          </div>
+          <h4>语言</h4>
+        </div>
+        <div class="skill-cats">
+          <span class="sk core">中文 · 母语</span>
+          <span class="sk warm">英语 · CET-6</span>
+          <span class="sk">熟练阅读与撰写英文文献</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 荣誉 ============ -->
+<section class="section" id="honors">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">06 / HONORS</div>
+      <h2 class="section-title">荣誉墙<span class="en-sub">7 NATIONAL · 16 PROVINCIAL</span></h2>
+    </div>
+    <div class="honor-wall">
+      <div class="honor-card national reveal">
+        <div class="medal gold"><svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
+        <div><div class="h-top">NATIONAL · 国家级</div><div class="h-name">国家奖学金</div></div>
+      </div>
+      <div class="honor-card reveal">
+        <div class="medal navy"><svg viewBox="0 0 24 24" fill="none" stroke="#1E3D59" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 L12 5 2 10 l10 5 10 -5 z"/><path d="M6 12 v5 c0 1.5 2.7 3 6 3 s6 -1.5 6 -3 v-5"/></svg></div>
+        <div><div class="h-top">GRADUATE · 优秀毕业生</div><div class="h-name">上海市优秀毕业生 · 河北省优秀毕业生</div></div>
+      </div>
+      <div class="honor-card national reveal">
+        <div class="medal gold"><svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 h12 v4 a6 6 0 0 1 -12 0 z" fill="#FBF0DC"/><path d="M9 20 h6 M12 14 v6"/></svg></div>
+        <div><div class="h-top">NATIONAL · 第一名（满分）</div><div class="h-name">PAT 程序设计竞赛（C++）冠军</div></div>
+      </div>
+      <div class="honor-card national reveal">
+        <div class="medal gold"><svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
+        <div><div class="h-top">NATIONAL · 国家二等奖</div><div class="h-name">全国计算机设计大赛</div></div>
+      </div>
+      <div class="honor-card national reveal">
+        <div class="medal gold"><svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
+        <div><div class="h-top">NATIONAL · 国家级银奖</div><div class="h-name">天梯赛大赛（C++）</div></div>
+      </div>
+      <div class="honor-card national reveal">
+        <div class="medal gold"><svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
+        <div><div class="h-top">NATIONAL · 国家二等奖</div><div class="h-name">蓝桥杯（软件 A 类）</div></div>
+      </div>
+      <div class="honor-card prov reveal">
+        <div class="medal teal"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
+        <div><div class="h-top">PROVINCIAL · 省级</div><div class="h-name">河北省三好学生 · 河北省优秀毕业生</div></div>
+      </div>
+      <div class="honor-card prov reveal">
+        <div class="medal teal"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
+        <div><div class="h-top">PROVINCIAL · 一等奖 ×2</div><div class="h-name">蓝桥杯河北省一等奖</div></div>
+      </div>
+      <div class="honor-card prov reveal">
+        <div class="medal teal"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
+        <div><div class="h-top">PROVINCIAL · 一等奖</div><div class="h-name">全国「创新创意创业」挑战赛省赛</div></div>
+      </div>
+      <div class="honor-card prov reveal">
+        <div class="medal teal"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
+        <div><div class="h-top">PROVINCIAL · 二等奖</div><div class="h-name">河北省大学生程序设计竞赛（CCPC）</div></div>
+      </div>
+    </div>
+    <div class="honor-more reveal">+ 30 余项校级奖项 · 完整列表见简历</div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ 联系 ============ -->
+<section class="contact">
+  <div class="wrap contact-inner">
+    <div class="c-eyebrow">07 / CONTACT</div>
+    <h2>一起做点有意思的</h2>
+    <p>无论是 Agent 系统的工程实践、研究合作，还是只想聊聊大模型的最新进展 —— 欢迎随时找我。</p>
+    <div class="contact-actions">
+      <a class="c-btn primary" href="mailto:hzxing21@m.fudan.edu.cn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 7 l10 7 10 -7"/></svg>
+        hzxing21@m.fudan.edu.cn
+      </a>
+      <a class="c-btn ghost" href="https://github.com/Haozhe-Xing" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5 -5 -2.5 -7 -3 m14 6 v-3.87 a3.37 3.37 0 0 0 -.94 -2.61 c3.14 -.35 6.44 -1.54 6.44 -7 A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1 S18.73 .65 16 2.48 a13.38 13.38 0 0 0 -7 0 C6.27 .65 5.09 1 5.09 1 A5.07 5.07 0 0 0 5 4.77 5.44 5.44 0 0 0 3.5 8.55 c0 5.42 3.3 6.61 6.44 7 A3.37 3.37 0 0 0 9 18.13 V22"/></svg>
+        GitHub
+      </a>
+      <a class="c-btn ghost" href="https://haozhe-xing.github.io/agent_learning/zh/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5 A2.5 2.5 0 0 1 6.5 17 H20"/><path d="M6.5 2 H20 v20 H6.5 A2.5 2.5 0 0 1 4 19.5 v-15 A2.5 2.5 0 0 1 6.5 2 z"/></svg>
+        从零开始学 Agent
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 XING HAOZHE · 邢浩哲 · 上海 &nbsp;|&nbsp; built with curiosity · <a href="简历.pdf" target="_blank">简历.pdf</a>
+</footer>
+
+<script>
+  // 滚动显现
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // 触发条形图
+        e.target.querySelectorAll('.bar-fill').forEach(b => {
+          b.style.width = b.dataset.w || '0%';
+        });
+        // 触发数字动画
+        e.target.querySelectorAll('[data-count]').forEach(el => {
+          if (el.dataset.done) return;
+          el.dataset.done = '1';
+          const target = parseInt(el.dataset.count, 10);
+          const dur = 1100, t0 = performance.now();
+          const tick = (t) => {
+            const p = Math.min((t - t0) / dur, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(target * eased);
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        });
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Hero 统计直接触发
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) {
+    const heroIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('[data-count]').forEach(el => {
+            if (el.dataset.done) return;
+            el.dataset.done = '1';
+            const target = parseInt(el.dataset.count, 10);
+            const dur = 1100, t0 = performance.now();
+            const tick = (t) => {
+              const p = Math.min((t - t0) / dur, 1);
+              el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+              if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          });
+          heroIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    heroIO.observe(heroStats);
+  }
+
+  // 可折叠自动轮播（支持多实例：新闻产出 / 知识库界面）
+  const setupCarousel = (wrap, trackId, prevId, nextId, dotsId, toggleSel, noun) => {
+    const el = document.getElementById(wrap);
+    if (!el) return;
+    const track = document.getElementById(trackId);
+    const cards = track.querySelectorAll('.news-card');
+    const dotsBox = document.getElementById(dotsId);
+    const prev = document.getElementById(prevId);
+    const next = document.getElementById(nextId);
+    const toggle = el.querySelector(toggleSel);
+    let idx = 0, timer = null;
+
+    const dots = [...cards].map((_, i) => {
+      const b = document.createElement('button');
+      b.addEventListener('click', () => go(i));
+      dotsBox.appendChild(b);
+      return b;
+    });
+
+    function render() {
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+    }
+    function go(i) { idx = (i + cards.length) % cards.length; render(); restart(); }
+    function restart() {
+      clearInterval(timer);
+      if (!el.classList.contains('collapsed'))
+        timer = setInterval(() => go(idx + 1), 4000);
+    }
+
+    prev.addEventListener('click', () => go(idx - 1));
+    next.addEventListener('click', () => go(idx + 1));
+
+    el.querySelector('.news-carousel').addEventListener('mouseenter', () => clearInterval(timer));
+    el.querySelector('.news-carousel').addEventListener('mouseleave', restart);
+
+    toggle.addEventListener('click', () => {
+      const collapsed = el.classList.toggle('collapsed');
+      toggle.setAttribute('aria-expanded', String(!collapsed));
+      toggle.childNodes[0].textContent = collapsed ? `展开${noun} ` : `收起${noun} `;
+      restart();
+    });
+
+    let sx = null;
+    track.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
+    track.addEventListener('touchend', e => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+      sx = null;
+    }, { passive: true });
+
+    render();
+    restart();
+  };
+
+  setupCarousel('newsStrip', 'ncTrack', 'ncPrev', 'ncNext', 'ncDots', '.ns-toggle', '产出示例');
+  setupCarousel('wikiStrip', 'wikiTrack', 'wikiPrev', 'wikiNext', 'wikiDots', '.ns-toggle', '界面示例');
+</script>
+</body>
+</html>

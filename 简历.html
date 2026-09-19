@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人简历</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #163b5c;
+      --primary-2: #2b5178;
+      --accent: #b8a06a;
+      --text: #252525;
+      --muted: #555;
+      --subtle: #888;
+      --line: #d8dde5;
+      --paper: #fff;
+    }
+
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Arial, sans-serif;
+      background: #e8e8e8;
+      display: flex;
+      justify-content: center;
+      padding: 24px 0 50px;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .resume {
+      width: 794px;
+      min-height: 1123px;
+      background: var(--paper);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+      padding: 32px 36px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resume::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      z-index: 0;
+    }
+
+    /* ===== 顶部头 ===== */
+    .header {
+      display: flex;
+      align-items: stretch;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-left {
+      flex: 1;
+    }
+
+    .header-name {
+      font-size: 28px;
+      line-height: 1.16;
+      font-weight: 800;
+      color: #111;
+      letter-spacing: 7px;
+      margin-bottom: 9px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 22px;
+      row-gap: 2px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .info-grid .info-item {
+      display: flex;
+      min-width: 0;
+    }
+
+    .info-grid .info-label {
+      color: #111;
+      width: 68px;
+      flex-shrink: 0;
+      font-weight: 700;
+      text-align-last: justify;
+    }
+
+    .info-grid .info-label::after {
+      content: "：";
+    }
+
+    .info-grid .info-val {
+      color: var(--muted);
+    }
+
+    .photo-box {
+      width: 88px;
+      height: 116px;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+      margin-left: 20px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #f7f7f7;
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ===== 模块标题（蓝色装饰条） ===== */
+    .section {
+      margin-bottom: 9px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .section-title .title-bar {
+      background: var(--primary-2);
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 800;
+      padding: 3px 15px 3px 12px;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+      border-radius: 2px 0 0 2px;
+    }
+
+    .section-title .title-bar::after {
+      content: "";
+      position: absolute;
+      right: -12px;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-top: 12.5px solid transparent;
+      border-bottom: 12.5px solid transparent;
+      border-left: 12px solid var(--primary-2);
+    }
+
+    .section-title .title-accent {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      z-index: 2;
+    }
+
+    .section-title .title-line {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+      margin-left: 20px;
+    }
+
+    /* ===== 教育背景 ===== */
+    .edu-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      line-height: 1.68;
+    }
+
+    .edu-table td {
+      padding: 1px 0;
+      vertical-align: baseline;
+    }
+
+    .edu-table .col-school {
+      width: 130px;
+      font-weight: 800;
+      color: #111;
+      white-space: nowrap;
+    }
+
+    .edu-table .col-degree {
+      width: 52px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .edu-table .col-major {
+      color: var(--muted);
+      padding-left: 4px;
+    }
+
+    .edu-table .col-rank {
+      color: var(--muted);
+      white-space: nowrap;
+      text-align: right;
+      padding: 0 8px;
+    }
+
+    .edu-table .col-gpa {
+      color: var(--muted);
+      white-space: nowrap;
+      text-align: right;
+      padding-right: 8px;
+    }
+
+    .edu-table .col-date {
+      color: var(--muted);
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .edu-table b {
+      color: #111;
+      font-weight: 800;
+    }
+
+    .edu-note {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 2px;
+    }
+
+    .edu-note b {
+      color: #111;
+    }
+
+    /* ===== 经历通用 ===== */
+    .exp-item {
+      margin-bottom: 7px;
+    }
+
+    .exp-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 2px;
+    }
+
+    .exp-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #111;
+    }
+
+    .exp-company {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .exp-left {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .exp-date {
+      font-size: 11.5px;
+      color: var(--subtle);
+      white-space: nowrap;
+      font-weight: 700;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      margin-top: 1px;
+      display: grid;
+      gap: 2px;
+    }
+
+    .exp-bullets li {
+      font-size: 11.5px;
+      color: #444;
+      line-height: 1.55;
+      padding-left: 13px;
+      position: relative;
+      margin-bottom: 0;
+    }
+
+    .exp-bullets li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 0.78em;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 5px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .exp-bullets li b {
+      color: #111;
+    }
+
+    /* ===== 论文&项目 ===== */
+    .proj-item {
+      margin-bottom: 6px;
+    }
+
+    .proj-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .proj-name {
+      font-size: 12.2px;
+      font-weight: 800;
+      color: #111;
+      flex: 1;
+      line-height: 1.45;
+    }
+
+    .proj-meta {
+      font-size: 11.3px;
+      color: var(--primary);
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-weight: 800;
+    }
+
+    .proj-desc {
+      font-size: 11.15px;
+      color: #555;
+      line-height: 1.48;
+      margin-top: 1px;
+    }
+
+    /* ===== 荣誉 ===== */
+    .honor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 20px;
+      row-gap: 0;
+    }
+
+    .honor-item {
+      font-size: 11.5px;
+      color: #444;
+      line-height: 1.55;
+      padding-left: 13px;
+      position: relative;
+    }
+
+    .honor-item::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 0.78em;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 5px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .honor-item b {
+      color: #111;
+    }
+
+    /* ===== 技能 ===== */
+    .skill-row {
+      font-size: 11.5px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .skill-label {
+      font-weight: 800;
+      color: #111;
+    }
+
+    /* ===== 个人评价 ===== */
+    .eval-text {
+      font-size: 11.5px;
+      color: #444;
+      line-height: 1.58;
+    }
+
+    .eval-text b {
+      color: #111;
+    }
+
+    .sub-note {
+      font-size: 11px;
+      color: #777;
+      margin-top: 3px;
+      line-height: 1.45;
+    }
+
+    .sub-note a,
+    a {
+      color: var(--primary-2);
+      text-decoration: none;
+    }
+
+    .sub-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== 分隔线 ===== */
+    .section-divider {
+      height: 0;
+    }
+
+    @page {
+      size: A4;
+      margin: 9mm 10mm 8mm;
+    }
+
+    @media print {
+      html, body {
+        width: auto;
+        min-height: auto;
+        background: #fff;
+        padding: 0;
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .resume {
+        width: auto;
+        min-height: auto;
+        box-shadow: none;
+        padding: 32px 36px 24px;
+      }
+
+      .exp-item,
+      .proj-item {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .section {
+        break-inside: auto;
+        page-break-inside: auto;
+      }
+
+      .section-title {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+
+      a {
+        color: var(--primary-2) !important;
+        text-decoration: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="resume">
+
+  <!-- ===== 顶部 ===== -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-name">邢浩哲</div>
+      <div class="info-grid">
+        <div class="info-item"><span class="info-label">姓　名</span><span class="info-val">邢浩哲</span></div>
+        <div class="info-item"><span class="info-label">毕业时间</span><span class="info-val">2024 年 06 月</span></div>
+        <div class="info-item"><span class="info-label">电　话</span><span class="info-val">17703344760</span></div>
+        <div class="info-item"><span class="info-label">政治面貌</span><span class="info-val">中共党员</span></div>
+        <div class="info-item"><span class="info-label">邮　箱</span><span class="info-val">hzxing21@m.fudan.edu.cn</span></div>
+        <div class="info-item"><span class="info-label">籍　贯</span><span class="info-val">河北省雄安新区</span></div>
+      </div>
+    </div>
+    <div class="photo-box">
+      <img src="img.png" alt="证件照" />
+    </div>
+  </div>
+
+  <!-- ===== 教育背景 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="title-accent"></span>
+      <span class="title-bar">教育背景</span>
+      <span class="title-line"></span>
+    </div>
+    <table class="edu-table">
+      <tr>
+        <td class="col-school">复旦大学（保研）</td>
+        <td class="col-degree">硕士</td>
+        <td class="col-major">计算机应用技术</td>
+        <td class="col-rank">排名：<b>1/29</b></td>
+        <td class="col-gpa">GPA：<b>3.75</b></td>
+        <td class="col-date">2021.09 — 2024.06</td>
+      </tr>
+      <tr>
+        <td class="col-school">燕山大学</td>
+        <td class="col-degree">本科</td>
+        <td class="col-major">软件工程</td>
+        <td class="col-rank">排名：<b>1/259</b></td>
+        <td class="col-gpa">GPA：<b>3.85</b></td>
+        <td class="col-date">2017.09 — 2021.06</td>
+      </tr>
+    </table>
+    <div class="edu-note">
+      <b>论文：</b>以第一作者发表 <b>1 篇 SCI 一区 (引用130+)</b> 和 <b>1 篇 CCF-B 类会议</b>；以二作和三作发表 <b>2 篇 CCF-A 类会议</b>。
+    </div>
+    <div class="edu-note">
+      <b>荣誉：</b>国家奖学金；累计获得 <b>7 项国家级奖项</b>、<b>16 项省级奖项</b>（含上海市优秀毕业生、河北省优秀毕业生等）。
+    </div>
+    <div class="edu-note">
+      <b>开源：</b><b>从零开始学 Agent</b>（GitHub 接近 500 Star）：<a href="https://haozhe-xing.github.io/agent_learning/zh/" style="color:#2b5178;text-decoration:none;">https://haozhe-xing.github.io/agent_learning/zh/</a>
+    </div>
+  </div>
+
+  <!-- ===== 工作经历 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="title-accent"></span>
+      <span class="title-bar">工作经历</span>
+      <span class="title-line"></span>
+    </div>
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-left">
+          <span class="exp-title">应用算法工程师</span>
+          <span class="exp-company">腾讯</span>
+        </div>
+        <span class="exp-date">2024.07 — 至今</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><b>基于大模型的新闻生成 Agent：</b>主导构建"话题筛选 → 资讯过滤与聚合 → 新闻生成 → 内容审核 → 智能配图（搜图 + 生图）→ 多模态聚合"全链路 AI 新闻生产系统。构建资讯分级体系保障优质信源占比 <b>≥90%</b>；通过 RAG 及一致性校验将 AI 资讯幻觉率由 <b>21‑34%降至小于10%</b>；针对时间/人物幻觉与过度总结，通过 LLM-as-a-Judge、DPO 微调模型、GEPA等相关方法不断提高过审率；正文评分由 <b>‑0.3 → ≥0.66</b>。当前正探索基于 Remotion 的资讯转视频能力，进一步丰富内容形态。</li>
+        <li><b>小说画像重构与服务优化：</b>主导小说画像体系重构，从搜索画像、行为特征到模型融合进行全链路优化。搜索侧引入正则模糊匹配提升召回能力（DAU 覆盖率 <b>19% → 62.2%</b>）；特征侧新增完结/追更偏好、主动点击序列及长阅读序列建模，丰富用户兴趣表征；模型侧引入大模型挖掘潜在兴趣并解决冷启动问题，基于大模型将画像语义 Embedding 注入精排模型提升转化率。画像准确度 <b>50% → 90%</b>，小说总时长 <b>+6%</b>，服务耗时 <b>↓20%</b>。</li>
+        <li><b>浮层资讯分发策略优化：</b>引入游戏画像与虎牙内容强化游戏垂类，联合产品圈选并扶持健康垂类优质账号，实现信息流总时长 <b>+1.34%</b>，总消费 PV <b>+0.96%</b>，健康兴趣用户人均时长 <b>+2.66%</b>。</li>
+        <li><b>商业混排优化：</b>模型侧采用强化学习 Double DQN 替换 Listwise 模型，将广告与自然内容的排序建模为序列决策问题，兼顾用户体验与商业收益的长期最优；策略侧系统梳理现有商混机制，结合人群画像分层与广告类型（品牌/效果/竞价）特征，制定差异化投放与频控策略，累计提升广告消耗 <b>+15%</b>，GMV <b>+10%</b>。此外，构建商业混排 Case 排查 Agent，基于大模型对日志链路进行自动解析，实现异常 CASE 的自动定位、根因归因与修复建议生成，大幅提升排查效率，推动商混服务智能化化升级。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 实习经历 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="title-accent"></span>
+      <span class="title-bar">实习经历</span>
+      <span class="title-line"></span>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-left">
+          <span class="exp-title">大模型实习生</span>
+          <span class="exp-company">科大讯飞</span>
+        </div>
+        <span class="exp-date">2024.01 — 2024.05</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><b>大模型外呼优化及自动化数据筛选：</b>构建自动化数据筛选流程，确保训练数据的准确性与有效性，为模型微调奠定高质量数据基础；基于标准话术与用户个性化信息，对大模型进行全量微调，实现精准、个性化的智能外呼回复，显著提升外呼转化效果。</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-left">
+          <span class="exp-title">暑期实习生（文字捏脸算法研究）</span>
+          <span class="exp-company">网易雷火伏羲实验室</span>
+        </div>
+        <span class="exp-date">2023.06 — 2023.09</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><b>逆水寒/永劫无间捏脸项目：</b>基于 StyleGAN 系列与 Stable Diffusion 改进图像生成算法，大幅提升生成效率与视觉质量；研究 Txt2Parameters 算法，通过文本描述直接调整渲染器参数实现文字驱动的图像编辑；基于 DeltaCLIP 改进交互式捏脸算法，显著提升交互效率与生成质量。此外负责数据集生成、整理及数据清洗等基础工程工作。</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-left">
+          <span class="exp-title">合伙人（LazyDraw · AI绘图APP）</span>
+          <span class="exp-company">创业项目</span>
+        </div>
+        <span class="exp-date">2023.03 — 2023.06</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><b>面向艺术家的 AI 绘图 APP：</b>独立完成产品设计与基于 FastAPI 的后端开发，集成 Stable Diffusion、ControlNet、SAM 等前沿模型完成业务应用；针对文生图算法手部绘制效果不佳的问题，采用工程化方案进行针对性优化。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 论文 & 项目 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="title-accent"></span>
+      <span class="title-bar">论文 &amp; 项目</span>
+      <span class="title-line"></span>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <span class="proj-name">LLM Wiki Knowledge Vault —— Agent 驱动的知识库管理系统</span>
+        <span class="proj-meta">独立开发</span>
+      </div>
+      <div class="proj-desc">以 mdBook 为底层存储与渲染引擎，将知识库抽象为"可检索、可阅读、可维护"的结构化书籍，同时面向 Agent 检索与浏览器阅读场景。设计暂存区/持久区双层内容治理机制：暂存区自动聚合前沿进展，持久区经人工确认后沉淀高质量知识；以全局 YAML 索引作为唯一真相来源，统一管理多知识库的目录、主题、标签与类型。构建自动分类管线，融合标签重叠、语义相关和类型亲和进行加权路由，低置信度内容回退人工确认；封装 Ingest/Classify/Create/List/Query/Lint 工作流，并将文件写入与 SUMMARY.md 同步强绑定，保障目录树一致性。目前已沉淀 6 个知识库，累计归档数百篇技术内容。</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <span class="proj-name">Algorithm Explain Skill —— 算法题讲解视频自动化生产系统</span>
+        <span class="proj-meta">独立开发</span>
+      </div>
+      <div class="proj-desc">面向算法学习与内容生产场景，设计从题目解析、分镜脚本、动画组件到成片交付的自动化 Skill。基于 Python 构建项目初始化与一键生产流水线，自动生成 Remotion 工程骨架、题解 Markdown、分镜配置、React 动画片段与音频/字幕目录；结合 TTS、FFmpeg 与 Remotion，实现分段语音合成、音视频时长同步、字幕生成、视频渲染及最终合成。内置质量检查机制，对关键帧内容占比、画面留白、字幕单行长度等进行自动检测并生成 QA 报告，提升算法讲解视频的批量生产效率与交付稳定性；目前过审率大约在 80% 左右。</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <span class="proj-name">coding AI Learning Coach —— 面向竞赛编程的智能学习平台</span>
+        <span class="proj-meta">独立开发</span>
+      </div>
+      <div class="proj-desc">面向编程学习构建 AI 学习教练平台，覆盖能力诊断、学习路线生成、题库推荐、在线刷题判题、做题记录与错题复盘等核心流程。后端基于 FastAPI、SQLModel 构建知识点、题目、前置依赖、用户状态与学习路线数据模型，支持 SQLite/MySQL 切换；前端基于 Vue 3、TypeScript、Vite、Pinia、Element Plus 与 ECharts 实现诊断问卷、仪表盘、路线页、题库页、练习页和错题本。接入 LLM 完成错因分析、路线解释与推荐排序，沉淀 54 个知识点、81 条前置关系，形成"诊断 → 规划 → 练习 → 反馈 → 复盘"的闭环学习系统。</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <span class="proj-name">Go Closer To See Better: Camouflaged Object Detection via Object Area Amplification and Figure-ground Conversion（TCSVT）</span>
+        <span class="proj-meta">第一作者, 130+引用</span>
+      </div>
+      <div class="proj-desc">针对伪装目标与背景高度相似导致的检测困难与分割不完整问题，提出 Search-Amplify-Recognize 三阶段检测网络，并设计图底关系转换模块增强边缘识别能力。该方法在伪装目标检测及下游任务上均大幅超越现有 SOTA，且可即插即用地提升其他 SOTA 方法的性能。</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <span class="proj-name">移动端轻量化显著性/伪装目标检测，移动端轻量化舌苔检测</span>
+        <span class="proj-meta">国家自然科学基金 · 核心成员</span>
+      </div>
+      <div class="proj-desc">针对现有模型移动端部署成本高昂的问题，深入调研业内领先模型并进行轻量化设计，运用 NNI（Neural Network Intelligence）完成模型压缩与优化，确保在移动端实现高性能表现。</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <span class="proj-name">多模态高精数据标注工具和标注算法的优化</span>
+        <span class="proj-meta">负责人</span>
+      </div>
+      <div class="proj-desc">提出创新的图像标注方法，引入灵活的 Mask 画笔与橡皮擦工具，显著提升细节丰富图像的预标注精度（如精确标注猫的胡须等细节），无需繁琐地逐点调整。</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <span class="proj-name">仲景中医大语言模型</span>
+        <span class="proj-meta">GitHub 100+ Star · 核心成员</span>
+      </div>
+      <div class="proj-desc">构建知识增强的中西医大语言模型。采用 Human-in-the-Loop 方式，融合中西医学、计算机与认知科学等多学科思路，通过医师与模型的多轮交互修订合成高质量专业语料，基于 LLaMA2-7B 进行微调。</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <span class="proj-name">stemCoding —— 面向 STEM 的儿童 AI 编程教育平台</span>
+        <span class="proj-meta">国家级优秀大创项目 · 负责人</span>
+      </div>
+      <div class="proj-desc">技术栈：Python, C#, Java, HTML/CSS/JS | Unity、深度学习、WebSocket<br>在 Scratch 平台基础上二次开发，构建全新扩展代码库及编译界面，使儿童可通过 Scratch 以交互式方式控制 Unity 环境中的足球机器人进行对战，极大增强了编程教学的互动性与趣味性。</div>
+    </div>
+
+    <div class="sub-note">
+      其余项目：招聘网站、购物网站、疫情监测平台、简易Excel软件、模拟页面置换算法的微课辅助软件。
+      详情：<a href="https://github.com/Haozhe-Xing/Projects-Information">Haozhe-Xing/Projects-Information</a>
+    </div>
+  </div>
+
+  <!-- ===== 荣誉 & 竞赛 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="title-accent"></span>
+      <span class="title-bar">荣誉 &amp; 竞赛</span>
+      <span class="title-line"></span>
+    </div>
+    <div class="honor-grid">
+      <div class="honor-item"><b>国家奖学金</b></div>
+      <div class="honor-item"><b>河北省三好学生</b></div>
+      <div class="honor-item"><b>上海市优秀毕业生, 河北省优秀毕业生</b></div>
+      <div class="honor-item">PAT 程序设计竞赛 (C++) 第一名（满分）</div>
+      <div class="honor-item">全国计算机设计大赛 国家二等奖</div>
+      <div class="honor-item">天梯赛大赛 (C++) 国家级银奖</div>
+      <div class="honor-item">蓝桥杯（软件A类）国家二等奖</div>
+      <div class="honor-item">蓝桥杯河北省一等奖 × 2</div>
+      <div class="honor-item">全国"创新创意创业"挑战赛省赛一等奖</div>
+      <div class="honor-item">河北省大学生程序设计 (CCPC) 二等奖</div>
+    </div>
+  </div>
+
+  <!-- ===== 技能 & 经验 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="title-accent"></span>
+      <span class="title-bar">技能 &amp; 经验</span>
+      <span class="title-line"></span>
+    </div>
+    <div class="skill-row"><span class="skill-label">编程语言：</span>Python、C++、Java、C#、C、HTML/CSS/JS</div>
+    <div class="skill-row"><span class="skill-label">深度学习：</span>PyTorch、CLIP、BERT、SAM、Stable Diffusion、LLaMA、LoRA/QLoRA</div>
+    <div class="skill-row"><span class="skill-label">工程 &amp; 开发：</span>FastAPI、JavaWeb、Unity、MySQL、Vue、React、WebSocket</div>
+    <div class="skill-row"><span class="skill-label">英语：</span>CET-6，具备熟练阅读和编写英文文献的能力</div>
+  </div>
+
+  <!-- ===== 个人评价 ===== -->
+  <div class="section" style="margin-bottom:0;">
+    <div class="section-title">
+      <span class="title-accent"></span>
+      <span class="title-bar">个人评价</span>
+      <span class="title-line"></span>
+    </div>
+    <div class="eval-text">
+      学习能力强，自我驱动，主动承担工作。本科期间积极参与各类竞赛，累计获得 <b>7 项国家级奖项</b>、<b>16 项省级奖项</b>、30 余项校级奖项。研究生及实习期间，面对全新领域能快速学习、独立上手并产出成果。
+    </div>
+    <div class="eval-text" style="margin-top:2px;">
+      具备良好的沟通协作能力，在校与实习期间均能与团队成员高效配合，保持积极的合作关系。
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

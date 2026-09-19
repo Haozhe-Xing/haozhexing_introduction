@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 840" width="620" height="840">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A5F56"/>
+      <stop offset="0.6" stop-color="#0E8C7F"/>
+      <stop offset="1" stop-color="#16A899"/>
+    </linearGradient>
+  </defs>
+  <rect width="620" height="840" fill="url(#bg4)"/>
+  <rect x="26" y="26" width="568" height="788" fill="none" stroke="#CDEEE8" stroke-width="1.5" opacity="0.55"/>
+  <rect x="34" y="34" width="552" height="772" fill="none" stroke="#CDEEE8" stroke-width="0.8" opacity="0.3"/>
+
+  <text x="56" y="88" font-family="Menlo,monospace" font-size="15" fill="#CDEEE8" letter-spacing="4" font-weight="700">XING HAOZHE · BOOKS</text>
+  <line x1="56" y1="106" x2="564" y2="106" stroke="#CDEEE8" stroke-width="1" opacity="0.4"/>
+
+  <!-- Python 蛇形代码装饰 -->
+  <g font-family="Menlo,monospace" font-size="22" font-weight="700">
+    <text x="130" y="190" fill="#FFFFFF" opacity="0.95">&gt;&gt;&gt; print(</text>
+    <text x="170" y="234" fill="#FFE9A8">"Hello"</text>
+    <text x="230" y="278" fill="#FFFFFF" opacity="0.95">+</text>
+    <text x="190" y="322" fill="#FFE9A8">"World"</text>
+    <text x="130" y="366" fill="#FFFFFF" opacity="0.95">)</text>
+    <text x="130" y="424" fill="#CDEEE8">Hello World</text>
+  </g>
+  <!-- 光标 -->
+  <rect x="130" y="440" width="13" height="24" fill="#FFE9A8">
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+
+  <text x="310" y="540" text-anchor="middle" font-family="Songti SC,STSong,serif" font-size="52" fill="#FFFFFF" font-weight="900" letter-spacing="3">Python 入门</text>
+  <text x="310" y="584" text-anchor="middle" font-family="Songti SC,STSong,serif" font-size="24" fill="#D2F1EB" letter-spacing="2">像计算机科学家一样思考</text>
+
+  <text x="310" y="742" text-anchor="middle" font-family="Menlo,monospace" font-size="14" fill="#CDEEE8" letter-spacing="2">6 PARTS · 31 CHAPTERS · 27 DIAGRAMS</text>
+  <text x="310" y="784" text-anchor="middle" font-family="Songti SC,STSong,serif" font-size="21" fill="#FFFFFF" letter-spacing="6">邢 浩 哲 著</text>
+</svg>

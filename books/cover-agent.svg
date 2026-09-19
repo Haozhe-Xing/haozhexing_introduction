@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 840" width="620" height="840">
+  <defs>
+    <linearGradient id="bgA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0E2A2E"/>
+      <stop offset="0.55" stop-color="#0E5F6A"/>
+      <stop offset="1" stop-color="#16B5A8"/>
+    </linearGradient>
+  </defs>
+  <rect width="620" height="840" fill="url(#bgA)"/>
+  <rect x="26" y="26" width="568" height="788" fill="none" stroke="#CDEEE8" stroke-width="1.5" opacity="0.55"/>
+  <rect x="34" y="34" width="552" height="772" fill="none" stroke="#CDEEE8" stroke-width="0.8" opacity="0.3"/>
+
+  <text x="56" y="88" font-family="Menlo,monospace" font-size="15" fill="#CDEEE8" letter-spacing="4" font-weight="700">XING HAOZHE · BOOKS</text>
+  <line x1="56" y1="106" x2="564" y2="106" stroke="#CDEEE8" stroke-width="1" opacity="0.4"/>
+
+  <!-- Agent 反馈循环装饰 -->
+  <g fill="none" stroke="#CDEEE8" stroke-width="2.5" stroke-linecap="round">
+    <circle cx="310" cy="220" r="50"/>
+    <text x="310" y="226" text-anchor="middle" font-family="Menlo,monospace" font-size="16" fill="#FFFFFF" font-weight="700" stroke="none">AGENT</text>
+
+    <circle cx="180" cy="320" r="28" fill="#0E2A2E"/>
+    <text x="180" y="324" text-anchor="middle" font-family="Menlo,monospace" font-size="10" fill="#FFE9A8" stroke="none">LLM</text>
+
+    <circle cx="310" cy="370" r="28" fill="#0E2A2E"/>
+    <text x="310" y="374" text-anchor="middle" font-family="Menlo,monospace" font-size="10" fill="#FFE9A8" stroke="none">Tool</text>
+
+    <circle cx="440" cy="320" r="28" fill="#0E2A2E"/>
+    <text x="440" y="324" text-anchor="middle" font-family="Menlo,monospace" font-size="10" fill="#FFE9A8" stroke="none">Memory</text>
+
+    <!-- 双向连线 -->
+    <path d="M310 270 L 200 300 M310 270 L 300 345 M310 270 L 420 300"/>
+    <path d="M180 350 L 200 400 L 295 400 L 320 400" stroke-dasharray="4 4"/>
+    <path d="M440 350 L 420 400 L 330 400" stroke-dasharray="4 4"/>
+    <!-- 反馈弧 -->
+    <path d="M310 170 Q 150 150 180 290" stroke-dasharray="3 3"/>
+    <path d="M310 170 Q 470 150 440 290" stroke-dasharray="3 3"/>
+  </g>
+
+  <text x="310" y="500" text-anchor="middle" font-family="Songti SC,STSong,serif" font-size="56" fill="#FFFFFF" font-weight="900" letter-spacing="3">从零开始</text>
+  <text x="310" y="556" text-anchor="middle" font-family="Songti SC,STSong,serif" font-size="56" fill="#FFFFFF" font-weight="900" letter-spacing="3">学 Agent</text>
+
+  <text x="310" y="600" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#CDEEE8" font-style="italic">Learn AI Agents from Scratch</text>
+
+  <text x="310" y="742" text-anchor="middle" font-family="Menlo,monospace" font-size="14" fill="#CDEEE8" letter-spacing="2">23 CHAPTERS · 330+ SVG · 188 PAGES · EN/中文</text>
+  <text x="310" y="784" text-anchor="middle" font-family="Songti SC,STSong,serif" font-size="21" fill="#FFFFFF" letter-spacing="6">邢 浩 哲 著</text>
+</svg>
