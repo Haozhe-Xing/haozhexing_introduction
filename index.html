@@ -563,6 +563,81 @@
   .proj-feature.flip .proj-fig { order: 2; }
   @media (max-width: 880px) { .proj-feature.flip .proj-fig { order: 0; } }
 
+  /* ---- 真实成片：视频 + 封面截图 ---- */
+  .vid-block {
+    grid-column: 1 / -1; order: 3;
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+    padding: 20px 26px 24px;
+  }
+  @media (max-width: 560px) { .vid-block { padding: 18px 16px 20px; } }
+  .vid-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+  }
+  .vid-head .vh-label {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--teal); letter-spacing: 1.6px;
+  }
+  .vid-head .vh-note {
+    font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .6px;
+  }
+  .vid-grid {
+    display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 14px; align-items: start;
+  }
+  @media (max-width: 880px) { .vid-grid { grid-template-columns: 1fr; } }
+
+  .vid-player { position: relative; }
+  .vp-stage { position: relative; }
+  .vid-player video {
+    width: 100%; height: auto; display: block; border-radius: 10px;
+    border: 1px solid var(--line); background: #0F2233;
+  }
+  .vid-player:not(.playing) video { pointer-events: none; }
+  .vp-play {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 62px; height: 62px; border-radius: 50%;
+    background: rgba(14, 140, 127, .94); color: #fff;
+    border: 2px solid rgba(255, 255, 255, .88); text-decoration: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 24px rgba(15, 34, 51, .38);
+    transition: transform .18s ease, background .18s ease;
+  }
+  .vp-play:hover { transform: translate(-50%, -50%) scale(1.08); background: #0E8C7F; }
+  .vp-play svg { width: 22px; height: 22px; margin-left: 3px; }
+  .vid-player.playing .vp-play { display: none; }
+  .vp-hint {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, 42px);
+    white-space: nowrap;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .5px;
+    color: #fff; background: rgba(15, 34, 51, .74);
+    border-radius: 5px; padding: 3px 9px;
+  }
+  .vid-player.playing .vp-hint { display: none; }
+  @media (max-width: 560px) { .vp-hint { display: none; } }
+  .vid-player .vp-cap {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    margin-top: 9px; font-size: 12.5px; color: var(--body-c);
+  }
+  .vid-player .vp-cap b { color: var(--ink); }
+  .vid-player .vp-dur {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    color: var(--teal); background: var(--teal-soft);
+    border-radius: 4px; padding: 2px 7px; flex-shrink: 0;
+  }
+
+  .vid-thumbs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 560px) { .vid-thumbs { grid-template-columns: 1fr; } }
+  .vid-thumb img {
+    width: 100%; height: auto; display: block; border-radius: 8px;
+    border: 1px solid var(--line); background: #fff;
+  }
+  .vid-thumb figcaption {
+    font-family: var(--mono); font-size: 10.5px; color: var(--muted);
+    letter-spacing: .4px; margin-top: 5px;
+  }
+
   .proj-fig {
     background: var(--navy); display: flex; align-items: center;
     justify-content: center; padding: 26px; min-height: 280px; position: relative;
@@ -1663,7 +1738,53 @@
         </p>
         <div class="proj-tags">
           <span class="ptag">Remotion</span><span class="ptag">TTS</span><span class="ptag">FFmpeg</span><span class="ptag">React</span>
-          <span class="ptag hl">过审率 ~80%</span>
+          <span class="ptag hl">过审率 ~80%</span><span class="ptag hl">51 条成片</span>
+        </div>
+      </div>
+
+      <!-- 真实成片：本流水线自动产出的视频与封面截图 -->
+      <div class="vid-block">
+        <div class="vid-head">
+          <span class="vh-label">REAL OUTPUT · 真实成片</span>
+          <span class="vh-note">51 条自动产出 · 1080p / 30fps · 累计 3.6 小时</span>
+        </div>
+        <div class="vid-grid">
+          <figure class="vid-player">
+            <div class="vp-stage">
+              <video playsinline preload="none" width="1280" height="720"
+                     poster="video/poster-binary-search.jpg" aria-label="二分查找算法讲解视频片段">
+                <source src="video/binary-search.mp4" type="video/mp4">
+                你的浏览器不支持视频播放，可查看右侧封面截图。
+              </video>
+              <a class="vp-play" href="video/binary-search.mp4" target="_blank" rel="noopener" aria-label="播放二分查找讲解片段">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3.5 L20.5 12 L6 20.5 z"/></svg>
+              </a>
+              <span class="vp-hint">点击播放 · 带语音讲解</span>
+            </div>
+            <figcaption class="vp-cap">
+              <b>二分查找 · Binary Search</b>
+              <span class="vp-dur">19s · 带语音讲解</span>
+              <span>由该流水线自动生成：题解 → 分镜 → Remotion 动画 → TTS 配音 → 字幕 → FFmpeg 合成</span>
+            </figcaption>
+          </figure>
+          <div class="vid-thumbs">
+            <figure class="vid-thumb">
+              <img loading="lazy" decoding="async" src="video/thumb-bfs.jpg" alt="BFS 逐层扩展讲解画面">
+              <figcaption>BFS · 逐层扩展</figcaption>
+            </figure>
+            <figure class="vid-thumb">
+              <img loading="lazy" decoding="async" src="video/thumb-prefix.jpg" alt="前缀和区间查询讲解画面">
+              <figcaption>前缀和 · 区间查询</figcaption>
+            </figure>
+            <figure class="vid-thumb">
+              <img loading="lazy" decoding="async" src="video/thumb-segment.jpg" alt="线段树区间查询讲解画面">
+              <figcaption>线段树 · 区间查询</figcaption>
+            </figure>
+            <figure class="vid-thumb">
+              <img loading="lazy" decoding="async" src="video/thumb-hashing.jpg" alt="哈希表两数之和讲解画面">
+              <figcaption>哈希表 · 两数之和</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </div>
@@ -2361,6 +2482,19 @@
 
   setupCarousel('newsStrip', 'ncTrack', 'ncPrev', 'ncNext', 'ncDots', '.ns-toggle', '产出示例');
   setupCarousel('wikiStrip', 'wikiTrack', 'wikiPrev', 'wikiNext', 'wikiDots', '.ns-toggle', '界面示例');
+
+  // 成片预览：点封面就地播放（无 JS 时 <a> 退化为直接打开 mp4）
+  document.querySelectorAll('.vid-player').forEach(box => {
+    const video = box.querySelector('video');
+    const btn = box.querySelector('.vp-play');
+    if (!video || !btn) return;
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      box.classList.add('playing');
+      video.controls = true;
+      video.play();
+    });
+  });
 </script>
 </body>
 </html>
