@@ -250,6 +250,35 @@
   .pl-metric-val { font-family: var(--mono); font-size: 13px; font-weight: 700; fill: #7FD8CB; }
   .pl-metric-val.warn { fill: #F0C36A; }
 
+  /* ---- AutoResearch 自进化闭环 ---- */
+  .ar-block {
+    margin-top: 34px; padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, .14);
+  }
+  .ar-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px; margin-bottom: 10px;
+  }
+  .ar-head h3 { font-size: 19px; font-weight: 800; letter-spacing: .5px; }
+  .ar-head .mono-note {
+    font-family: var(--mono); font-size: 12px; color: #9DBBCE; letter-spacing: 1px;
+  }
+  .ar-desc { color: #C6D6E2; font-size: 14px; max-width: 780px; margin-bottom: 24px; }
+  .ar-desc b { color: #7FD8CB; }
+  .ar-svg { margin: 0 -8px 20px; overflow-x: auto; max-width: 100%; }
+  .ar-svg:last-child { margin-bottom: 0; }
+  .ar-svg svg { width: 100%; min-width: 720px; height: auto; display: block; }
+  .ar-svg-cap {
+    font-family: var(--mono); font-size: 11px; color: #9DBBCE;
+    letter-spacing: 1px; margin: 0 0 10px 2px;
+  }
+  .ar-step-t { font-family: var(--sans); font-size: 13.5px; font-weight: 700; fill: #fff; }
+  .ar-step-s { font-family: var(--mono); font-size: 9.5px; fill: #8FB0C6; letter-spacing: 1px; }
+  .ar-flow-label { font-family: var(--mono); font-size: 11px; fill: #7FD8CB; letter-spacing: .5px; }
+  .ar-axis { font-family: var(--mono); font-size: 10.5px; fill: #C6D6E2; }
+  .ar-val { font-family: var(--mono); font-size: 13px; font-weight: 700; fill: #7FD8CB; }
+  .ar-val.muted { fill: #9DBBCE; font-weight: 500; }
+
   /* ============ 通用 Section ============ */
   .section { padding: 84px 0 20px; scroll-margin-top: 72px; }
   .section-head { margin-bottom: 40px; }
@@ -964,6 +993,7 @@
   .contact {
     margin-top: 88px; background: var(--navy); color: #fff;
     position: relative; overflow: hidden;
+    scroll-margin-top: 72px;
   }
   .contact::before {
     content: ""; position: absolute; inset: 0; opacity: .4;
@@ -1042,7 +1072,7 @@
       <a href="#pubs">论文</a>
       <a href="#skills">技能</a>
       <a href="#honors">荣誉</a>
-      <a class="nav-cta" href="简历.pdf" target="_blank">简历.pdf ↗</a>
+      <a class="nav-cta" href="#contact">联系 ↗</a>
     </div>
   </div>
 </nav>
@@ -1060,7 +1090,8 @@
         AI Agent 工程师 · 技术作者<span class="sep">/</span>复旦大学 计算机应用技术 硕士
       </div>
       <p class="hero-bio">
-        正在构建<b>大模型驱动的新闻生产 Agent</b> —— 从话题筛选、资讯聚合、内容生成到审核配图的全链路系统。
+        正在构建<b>大模型驱动的新闻生产 Agent</b> —— 从话题筛选、资讯聚合、内容生成到审核配图的全链路系统，
+        并用 <b>AutoResearch 闭环</b>让 Agent 自己评测、自己改写策略，<b>效果随迭代持续变强</b>。
         相信 <b>Agent 是软件的新形态</b>，喜欢把研究论文变成跑在线上的服务。
       </p>
       <div class="hero-chips">
@@ -1231,6 +1262,117 @@
         </g>
       </svg>
     </div>
+
+    <!-- ---- AutoResearch：让 Agent 自己把自己练强 ---- -->
+    <div class="ar-block">
+      <div class="ar-head">
+        <h3>AutoResearch · Agent 自己把自己练强</h3>
+        <span class="mono-note">SELF-EVOLVING LOOP · 无需人工调参</span>
+      </div>
+      <p class="ar-desc">
+        把流水线跑通只是起点。我给这套 Agent 接了 <b>AutoResearch 自进化闭环</b>：它每天产出的稿子会被自动评测与归因，然后<b>由 Agent 自己改写自己的 Prompt 与 Skill</b>，再回到线上做回归验证 —— 评测结论不落在报告里，而是沉淀成可复用的规则。跑得越久，起点越高：<b>效果不是靠我手动调参，而是随迭代自己往上走</b>。
+      </p>
+
+      <div class="ar-svg-cap">AUTO-RESEARCH LOOP · 自我进化闭环</div>
+      <div class="ar-svg">
+        <svg viewBox="0 0 1064 176" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AutoResearch 自进化闭环：自动评测、失败归因、改写 Prompt 与 Skill、上线回归验证">
+          <defs>
+            <marker id="arArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#5E88A8"/>
+            </marker>
+            <marker id="arArrowTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#7FD8CB"/>
+            </marker>
+          </defs>
+
+          <!-- 步骤 1 -->
+          <g>
+            <rect x="72" y="24" width="200" height="58" rx="10" fill="#16334E" stroke="#43678A" stroke-width="1.5"/>
+            <text x="172" y="49" text-anchor="middle" class="ar-step-t">① 自动评测</text>
+            <text x="172" y="67" text-anchor="middle" class="ar-step-s">JUDGE · 指标回放</text>
+          </g>
+          <!-- 步骤 2 -->
+          <g>
+            <rect x="320" y="24" width="200" height="58" rx="10" fill="#16334E" stroke="#43678A" stroke-width="1.5"/>
+            <text x="420" y="49" text-anchor="middle" class="ar-step-t">② 失败归因</text>
+            <text x="420" y="67" text-anchor="middle" class="ar-step-s">幻觉 · 结构 · 风格</text>
+          </g>
+          <!-- 步骤 3（核心） -->
+          <g>
+            <rect x="568" y="24" width="200" height="58" rx="10" fill="#0E8C7F" stroke="#7FD8CB" stroke-width="1.8"/>
+            <text x="668" y="49" text-anchor="middle" class="ar-step-t">③ 改写 Prompt · Skill</text>
+            <text x="668" y="67" text-anchor="middle" class="ar-step-s">规则沉淀为资产</text>
+          </g>
+          <!-- 步骤 4 -->
+          <g>
+            <rect x="816" y="24" width="200" height="58" rx="10" fill="#16334E" stroke="#43678A" stroke-width="1.5"/>
+            <text x="916" y="49" text-anchor="middle" class="ar-step-t">④ 上线回归验证</text>
+            <text x="916" y="67" text-anchor="middle" class="ar-step-s">A/B · 保留更优解</text>
+          </g>
+
+          <!-- 正向箭头 -->
+          <g stroke="#43678A" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#arArrow)">
+            <line x1="272" y1="53" x2="312" y2="53"/>
+            <line x1="520" y1="53" x2="560" y2="53"/>
+            <line x1="768" y1="53" x2="808" y2="53"/>
+          </g>
+
+          <!-- 回环：结论回写为规则 -->
+          <path d="M916 82 L916 128 L172 128 L172 92" stroke="#7FD8CB" stroke-width="1.8" fill="none" marker-end="url(#arArrowTeal)" opacity=".85"/>
+          <circle r="4" fill="#7FD8CB">
+            <animateMotion dur="3.6s" repeatCount="indefinite" path="M916,82 L916,128 L172,128 L172,92"/>
+          </circle>
+          <text x="544" y="152" text-anchor="middle" class="ar-flow-label">每一轮评测结论回写为可复用规则 —— 下一轮起点比上一轮更高</text>
+        </svg>
+      </div>
+
+      <div class="ar-svg-cap">METRIC · 正文质量评分随迭代单调上升（同一套 Agent，无人为调参）</div>
+      <div class="ar-svg">
+        <svg viewBox="0 0 1064 186" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="正文质量评分随 AutoResearch 迭代上升：从 −0.3 提升到 0.66">
+          <defs>
+            <linearGradient id="arFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#7FD8CB" stop-opacity=".26"/>
+              <stop offset="100%" stop-color="#7FD8CB" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- 坐标轴 -->
+          <line x1="90" y1="34" x2="90" y2="140" stroke="#34597A" stroke-width="1.2"/>
+          <line x1="90" y1="140" x2="1010" y2="140" stroke="#34597A" stroke-width="1.2"/>
+          <line x1="90" y1="134" x2="1010" y2="134" stroke="#43678A" stroke-width="1" stroke-dasharray="4 5"/>
+
+          <!-- 刻度值 -->
+          <text x="80" y="46" text-anchor="end" class="ar-val">0.66</text>
+          <text x="80" y="138" text-anchor="end" class="ar-val muted">−0.3</text>
+
+          <!-- 面积 + 曲线 -->
+          <path d="M150,134 L302,117 L454,100 L606,79 L758,59 L910,42 L910,140 L150,140 Z" fill="url(#arFill)"/>
+          <polyline points="150,134 302,117 454,100 606,79 758,59 910,42" stroke="#7FD8CB" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- 数据点 -->
+          <g fill="#0E8C7F" stroke="#7FD8CB" stroke-width="2">
+            <circle cx="150" cy="134" r="4"/>
+            <circle cx="302" cy="117" r="4"/>
+            <circle cx="454" cy="100" r="4"/>
+            <circle cx="606" cy="79" r="4"/>
+            <circle cx="758" cy="59" r="4"/>
+          </g>
+          <circle cx="910" cy="42" r="6.5" fill="#7FD8CB" stroke="#fff" stroke-width="2"/>
+          <text x="900" y="24" text-anchor="end" class="ar-val">+0.96 分 · 当前最优</text>
+
+          <!-- 阶段标签 -->
+          <g class="ar-axis" text-anchor="middle">
+            <text x="150" y="162">基线 Prompt</text>
+            <text x="302" y="162">+ 结构化约束</text>
+            <text x="454" y="162">+ RAG 事实校验</text>
+            <text x="606" y="162">+ Judge 反馈</text>
+            <text x="758" y="162">+ DPO 微调</text>
+            <text x="910" y="162">+ GEPA 提示进化</text>
+          </g>
+          <text x="90" y="178" class="ar-axis" style="fill:#9DBBCE">↑ 横轴：AutoResearch 迭代轮次</text>
+        </svg>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1300,11 +1442,11 @@
         <div class="proj-kicker">AGENT SYSTEM · 全链路负责</div>
         <h3>AI 新闻生产 Agent</h3>
         <p>
-          主导构建「话题筛选 → 资讯过滤聚合 → 新闻生成 → 内容审核 → 智能配图（搜图+生图）→ 多模态分发」全链路 AI 新闻生产系统。构建资讯分级体系保障优质信源占比 ≥90%；通过 RAG 与一致性校验将幻觉率从 21–34% 压到 10% 以内；针对时间/人物幻觉与过度总结，用 LLM-as-a-Judge、DPO 微调、GEPA 把正文评分从 −0.3 提升到 0.66。正探索基于 Remotion 的资讯转视频能力。
+          主导构建「话题筛选 → 资讯过滤聚合 → 新闻生成 → 内容审核 → 智能配图（搜图+生图）→ 多模态分发」全链路 AI 新闻生产系统。构建资讯分级体系保障优质信源占比 ≥90%；通过 RAG 与一致性校验将幻觉率从 21–34% 压到 10% 以内；针对时间/人物幻觉与过度总结，用 LLM-as-a-Judge、DPO 微调、GEPA 把正文评分从 −0.3 提升到 0.66。在此之上接入 <b>AutoResearch 自进化闭环</b>：Agent 自动完成评测、失败归因与自我改写，把每轮结论沉淀为可复用规则，评分不靠人工调参而持续爬升。正探索基于 Remotion 的资讯转视频能力。
         </p>
         <div class="proj-tags">
           <span class="ptag">LLM Agent</span><span class="ptag">RAG</span><span class="ptag">DPO</span><span class="ptag">GEPA</span><span class="ptag">Remotion</span>
-          <span class="ptag hl">幻觉率 &lt;10%</span><span class="ptag hl">正文评分 −0.3 → 0.66</span>
+          <span class="ptag hl">AutoResearch 自进化</span><span class="ptag hl">幻觉率 &lt;10%</span><span class="ptag hl">正文评分 −0.3 → 0.66</span>
         </div>
       </div>
 
@@ -2071,14 +2213,14 @@
         </div>
       </div>
     </div>
-    <div class="honor-more reveal">+ 30 余项校级奖项 · 完整列表见简历</div>
+    <div class="honor-more reveal">+ 30 余项校级奖项</div>
   </div>
 </section>
 
 </main>
 
 <!-- ============ 联系 ============ -->
-<section class="contact">
+<section class="contact" id="contact">
   <div class="wrap contact-inner">
     <div class="c-eyebrow">07 / CONTACT</div>
     <h2>一起做点有意思的</h2>
@@ -2101,7 +2243,7 @@
 </section>
 
 <footer>
-  © 2026 XING HAOZHE · 邢浩哲 · 上海 &nbsp;|&nbsp; built with curiosity · <a href="简历.pdf" target="_blank">简历.pdf</a>
+  © 2026 XING HAOZHE · 邢浩哲 · 上海 &nbsp;|&nbsp; built with curiosity
 </footer>
 
 <script>
