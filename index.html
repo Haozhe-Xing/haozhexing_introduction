@@ -638,6 +638,53 @@
     letter-spacing: .4px; margin-top: 5px;
   }
 
+  /* ---- 真实产品截图 ---- */
+  .shot-block {
+    grid-column: 1 / -1; order: 3;
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+    padding: 20px 26px 24px;
+  }
+  @media (max-width: 560px) { .shot-block { padding: 18px 16px 20px; } }
+  .shot-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+  }
+  .shot-head .vh-label {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--teal); letter-spacing: 1.6px;
+  }
+  .shot-head .vh-note {
+    font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .6px;
+  }
+  .shot-grid {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+  }
+  @media (max-width: 980px) { .shot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .shot-grid { grid-template-columns: 1fr; } }
+  .shot-item { display: block; text-decoration: none; }
+  .shot-item img {
+    width: 100%; height: auto; display: block; border-radius: 10px;
+    border: 1px solid var(--line); background: #fff;
+    box-shadow: 0 2px 10px rgba(15, 34, 51, .07);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .shot-item:hover img {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 34, 51, .16);
+  }
+  .shot-item .si-cap {
+    display: flex; align-items: baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: 4px 10px; margin-top: 7px;
+  }
+  .shot-item .si-name {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--ink); letter-spacing: .5px;
+  }
+  .shot-item .si-desc {
+    font-family: var(--mono); font-size: 10.5px; color: var(--muted); letter-spacing: .3px;
+  }
+
   .proj-fig {
     background: var(--navy); display: flex; align-items: center;
     justify-content: center; padding: 26px; min-height: 280px; position: relative;
@@ -1791,54 +1838,7 @@
     </div>
 
     <!-- 项目 3 -->
-    <div class="proj-feature has-fig reveal">
-      <div class="proj-fig">
-        <span class="fig-tag">FULL-STACK · EDUCATION</span>
-        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- 学习路径 -->
-          <path d="M50 220 C 110 220 110 150 170 150 S 240 80 310 80" stroke="#43678A" stroke-width="2.4" stroke-dasharray="6 6" fill="none"/>
-          <!-- 节点 -->
-          <g>
-            <circle cx="50" cy="220" r="20" fill="#16334E" stroke="#43678A" stroke-width="2"/>
-            <text x="50" y="226" text-anchor="middle" font-family="Menlo,monospace" font-size="11" fill="#8FB0C6">诊断</text>
-          </g>
-          <g>
-            <circle cx="170" cy="150" r="20" fill="#16334E" stroke="#43678A" stroke-width="2"/>
-            <text x="170" y="156" text-anchor="middle" font-family="Menlo,monospace" font-size="11" fill="#8FB0C6">规划</text>
-          </g>
-          <g>
-            <circle cx="310" cy="80" r="22" fill="#0E8C7F" stroke="#7FD8CB" stroke-width="2"/>
-            <path d="M301 80 l6 6 12 -13" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          </g>
-          <!-- 里程碑小点 -->
-          <g fill="#2B587E">
-            <circle cx="106" cy="188" r="5"/>
-            <circle cx="228" cy="112" r="5"/>
-          </g>
-          <!-- 仪表盘卡片 -->
-          <g>
-            <rect x="42" y="44" width="130" height="66" rx="8" fill="#16334E" stroke="#43678A" stroke-width="1.6"/>
-            <text x="54" y="62" font-family="Menlo,monospace" font-size="9" fill="#8FB0C6">掌握度 DASHBOARD</text>
-            <rect x="54" y="70" width="106" height="7" rx="3.5" fill="#0F2233"/>
-            <rect x="54" y="70" width="76" height="7" rx="3.5" fill="#7FD8CB"/>
-            <rect x="54" y="84" width="106" height="7" rx="3.5" fill="#0F2233"/>
-            <rect x="54" y="84" width="42" height="7" rx="3.5" fill="#F0C36A"/>
-            <text x="54" y="104" font-family="Menlo,monospace" font-size="8.5" fill="#8FB0C6">ECharts · Vue 3</text>
-          </g>
-          <!-- 错题本卡片 -->
-          <g>
-            <rect x="232" y="176" width="126" height="72" rx="8" fill="#16334E" stroke="#43678A" stroke-width="1.6"/>
-            <text x="244" y="194" font-family="Menlo,monospace" font-size="9" fill="#8FB0C6">错题本 · LLM 错因分析</text>
-            <path d="M250 208 h40" stroke="#E06C6C" stroke-width="2.4" stroke-linecap="round"/>
-            <text x="250" y="222" font-family="Menlo,monospace" font-size="8.5" fill="#8FB0C6">边界条件遗漏</text>
-            <path d="M296 234 l4 4 7 -8" stroke="#7FD8CB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
-          <!-- 标注 -->
-          <text x="46" y="270" font-family="Menlo,monospace" font-size="10" fill="#8FB0C6">54 知识点</text>
-          <text x="140" y="270" font-family="Menlo,monospace" font-size="10" fill="#8FB0C6">81 前置关系</text>
-          <text x="246" y="270" font-family="Menlo,monospace" font-size="10" fill="#8FB0C6">在线判题</text>
-        </svg>
-      </div>
+    <div class="proj-feature reveal">
       <div class="proj-body">
         <div class="proj-kicker">INDEPENDENT · 独立开发</div>
         <h3>Coding AI Learning Coach</h3>
@@ -1846,8 +1846,41 @@
           面向竞赛编程的智能学习平台，覆盖能力诊断、学习路线生成、题库推荐、在线刷题判题与错题复盘全流程。后端 FastAPI + SQLModel，前端 Vue 3 + TypeScript + ECharts，接入 LLM 完成错因分析与推荐排序，沉淀 54 个知识点、81 条前置关系，形成「诊断 → 规划 → 练习 → 反馈 → 复盘」的完整闭环。
         </p>
         <div class="proj-tags">
-          <span class="ptag">FastAPI</span><span class="ptag">Vue 3</span><span class="ptag">TypeScript</span><span class="ptag">LLM</span>
-          <span class="ptag hl">54 知识点闭环</span>
+          <span class="ptag">FastAPI</span><span class="ptag">Vue 3</span><span class="ptag">TypeScript</span><span class="ptag">ECharts</span><span class="ptag">LLM Agent</span>
+          <span class="ptag hl">真实产品截图 · 6 个界面</span>
+        </div>
+      </div>
+
+      <div class="shot-block">
+        <div class="shot-head">
+          <span class="vh-label">REAL PRODUCT · 真实产品截图</span>
+          <span class="vh-note">本地运行实例实拍 · 点击查看大图</span>
+        </div>
+        <div class="shot-grid">
+          <a class="shot-item" href="coach/dashboard.jpg" target="_blank" rel="noopener">
+            <img loading="lazy" decoding="async" src="coach/dashboard.jpg" width="1200" height="750" alt="CodeCoach 学习仪表盘界面截图">
+            <span class="si-cap"><span class="si-name">学习仪表盘</span><span class="si-desc">掌握度 · 今日任务 · AI 推荐</span></span>
+          </a>
+          <a class="shot-item" href="coach/roadmap.jpg" target="_blank" rel="noopener">
+            <img loading="lazy" decoding="async" src="coach/roadmap.jpg" width="1200" height="750" alt="CodeCoach 学习路线界面截图">
+            <span class="si-cap"><span class="si-name">学习路线</span><span class="si-desc">阶段计划 · 任务进度</span></span>
+          </a>
+          <a class="shot-item" href="coach/bank.jpg" target="_blank" rel="noopener">
+            <img loading="lazy" decoding="async" src="coach/bank.jpg" width="1200" height="750" alt="CodeCoach 题库界面截图">
+            <span class="si-cap"><span class="si-name">题库</span><span class="si-desc">Contest 分组 · 多维筛选</span></span>
+          </a>
+          <a class="shot-item" href="coach/analyze.jpg" target="_blank" rel="noopener">
+            <img loading="lazy" decoding="async" src="coach/analyze.jpg" width="1200" height="750" alt="CodeCoach 错题本 · AI 归因界面截图">
+            <span class="si-cap"><span class="si-name">错题本 · AI 归因</span><span class="si-desc">诊断 · 纠正 · 复盘</span></span>
+          </a>
+          <a class="shot-item" href="coach/learning.jpg" target="_blank" rel="noopener">
+            <img loading="lazy" decoding="async" src="coach/learning.jpg" width="1200" height="750" alt="CodeCoach 学习资料界面截图">
+            <span class="si-cap"><span class="si-name">学习资料</span><span class="si-desc">讲义 + 讲解视频</span></span>
+          </a>
+          <a class="shot-item" href="coach/coach.jpg" target="_blank" rel="noopener">
+            <img loading="lazy" decoding="async" src="coach/coach.jpg" width="1200" height="750" alt="CodeCoach AI 教练界面截图">
+            <span class="si-cap"><span class="si-name">AI 教练</span><span class="si-desc">多轮对话 · 工具调用</span></span>
+          </a>
         </div>
       </div>
     </div>
