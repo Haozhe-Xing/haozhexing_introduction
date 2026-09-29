@@ -251,7 +251,7 @@
   .pl-metric-val.warn { fill: #F0C36A; }
 
   /* ============ 通用 Section ============ */
-  .section { padding: 84px 0 20px; }
+  .section { padding: 84px 0 20px; scroll-margin-top: 72px; }
   .section-head { margin-bottom: 40px; }
   .section-eyebrow {
     font-family: var(--mono); font-size: 12.5px; font-weight: 600;
@@ -600,6 +600,39 @@
   }
   .proj-card p { font-size: 13.5px; color: var(--body-c); flex: 1; }
 
+  /* ---- 早期小项目网格 ---- */
+  .mini-head {
+    grid-column: 1 / -1;
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+    color: var(--teal); letter-spacing: 2px; margin: 12px 0 0;
+  }
+  .mini-grid {
+    grid-column: 1 / -1;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  @media (max-width: 980px) { .mini-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .mini-grid { grid-template-columns: 1fr; } }
+  .mini-card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 16px 18px;
+    display: flex; flex-direction: column;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .mini-card:hover {
+    transform: translateY(-3px); box-shadow: 0 12px 28px rgba(15,29,46,0.09);
+    border-color: var(--navy-2);
+  }
+  .mini-card h5 { font-size: 14.5px; font-weight: 800; line-height: 1.4; margin-bottom: 4px; }
+  .mini-card .mini-idx {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    color: var(--muted); letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .mini-card p { font-size: 13px; color: var(--body-c); }
+  .mini-more {
+    grid-column: 1 / -1; margin-top: 4px;
+    font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 1px;
+  }
+
   /* ============ 著作 ============ */
   .books-hero {
     display: grid; grid-template-columns: 340px 1fr; gap: 36px;
@@ -885,6 +918,41 @@
     margin-top: 16px; text-align: center;
     font-family: var(--mono); font-size: 12px; color: var(--muted);
     letter-spacing: 1px;
+  }
+
+  /* ---- 竞赛成绩榜单 ---- */
+  .rank-group {
+    margin-top: 26px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 22px 26px 6px;
+  }
+  .rank-head {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  }
+  .rank-head .rank-title { font-size: 16px; font-weight: 800; }
+  .rank-head .rank-note {
+    font-family: var(--mono); font-size: 11.5px; color: var(--muted); letter-spacing: 1px;
+  }
+  .rank-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 0; border-bottom: 1px dashed var(--line);
+  }
+  .rank-row:last-child { border-bottom: none; }
+  .rank-badge {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 800;
+    letter-spacing: 1px; padding: 3px 9px; border-radius: 4px; flex-shrink: 0;
+  }
+  .rank-badge.nat { color: var(--amber); background: var(--amber-soft); }
+  .rank-badge.pro { color: var(--teal); background: var(--teal-soft); }
+  .rank-name { font-size: 14px; font-weight: 700; flex: 1; min-width: 0; }
+  .rank-detail {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    text-align: right; flex-shrink: 0;
+  }
+  @media (max-width: 560px) {
+    .rank-group { padding: 18px 20px 4px; }
+    .rank-row { flex-wrap: wrap; gap: 6px 12px; }
+    .rank-detail { text-align: left; width: 100%; }
   }
 
   /* ============ 联系 ============ */
@@ -1245,7 +1313,7 @@
             <div class="news-carousel">
               <div class="nc-track" id="ncTrack">
                 <div class="news-card">
-                  <div class="nc-img"><img src="news/cover-1.jpg" alt="国产大模型 MiniMax M2.7 正式开源"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="news/cover-1.jpg" alt="国产大模型 MiniMax M2.7 正式开源"></div>
                   <div class="nc-body">
                     <div class="nc-src">开源模型</div>
                     <div class="nc-title">国产大模型 MiniMax M2.7 正式开源，定位于轻量化高效推理</div>
@@ -1253,7 +1321,7 @@
                   </div>
                 </div>
                 <div class="news-card">
-                  <div class="nc-img"><img src="news/cover-2.jpg" alt="智元机器人发布远征 A3 人形机器人"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="news/cover-2.jpg" alt="智元机器人发布远征 A3 人形机器人"></div>
                   <div class="nc-body">
                     <div class="nc-src">具身智能</div>
                     <div class="nc-title">智元机器人发布远征 A3 人形机器人并完成首批交付</div>
@@ -1261,7 +1329,7 @@
                   </div>
                 </div>
                 <div class="news-card">
-                  <div class="nc-img"><img src="news/cover-3.jpg" alt="量子计算在硬件与算法领域同获突破"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="news/cover-3.jpg" alt="量子计算在硬件与算法领域同获突破"></div>
                   <div class="nc-body">
                     <div class="nc-src">前沿科学</div>
                     <div class="nc-title">量子计算在硬件与算法领域同获突破，大幅降低破解现有加密所需资源</div>
@@ -1269,7 +1337,7 @@
                   </div>
                 </div>
                 <div class="news-card">
-                  <div class="nc-img"><img src="news/cover-4.jpg" alt="我国最大规模科学智能计算集群在郑州投入使用"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="news/cover-4.jpg" alt="我国最大规模科学智能计算集群在郑州投入使用"></div>
                   <div class="nc-body">
                     <div class="nc-src">算力基建</div>
                     <div class="nc-title">我国最大规模科学智能计算集群在郑州投入使用</div>
@@ -1277,7 +1345,7 @@
                   </div>
                 </div>
                 <div class="news-card">
-                  <div class="nc-img"><img src="news/cover-5.jpg" alt="力箭一号遥十二火箭成功一箭 8 星发射"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="news/cover-5.jpg" alt="力箭一号遥十二火箭成功一箭 8 星发射"></div>
                   <div class="nc-body">
                     <div class="nc-src">航天动态</div>
                     <div class="nc-title">力箭一号遥十二火箭成功一箭 8 星发射，正式拉开年度航班化序幕</div>
@@ -1319,7 +1387,7 @@
             <div class="news-carousel">
               <div class="nc-track" id="wikiTrack">
                 <div class="news-card">
-                  <div class="nc-img"><img src="books/agent-page.png" alt="从零开始学 Agent 内页"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="books/agent-page.png" alt="从零开始学 Agent 内页"></div>
                   <div class="nc-body">
                     <div class="nc-src">知识库 · AGENT</div>
                     <div class="nc-title">从零开始学 Agent — 23 章 · 330+ SVG 图解</div>
@@ -1327,7 +1395,7 @@
                   </div>
                 </div>
                 <div class="news-card">
-                  <div class="nc-img"><img src="books/cpp-page.png" alt="C++ 数据结构内页"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="books/cpp-page.png" alt="C++ 数据结构内页"></div>
                   <div class="nc-body">
                     <div class="nc-src">知识库 · C++</div>
                     <div class="nc-title">C++ 数据结构与算法 — BFS / DFS 图解实战</div>
@@ -1335,7 +1403,7 @@
                   </div>
                 </div>
                 <div class="news-card">
-                  <div class="nc-img"><img src="books/usaaio-page.png" alt="USAAIO 内页"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="books/usaaio-page.png" alt="USAAIO 内页"></div>
                   <div class="nc-body">
                     <div class="nc-src">知识库 · USAAIO</div>
                     <div class="nc-title">USAAIO Mastery — 从零到 AI 奥赛 · 51 篇 · 183 图</div>
@@ -1343,7 +1411,7 @@
                   </div>
                 </div>
                 <div class="news-card">
-                  <div class="nc-img"><img src="books/funrec-page.png" alt="fun-rec 推荐系统内页"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="books/funrec-page.png" alt="fun-rec 推荐系统内页"></div>
                   <div class="nc-body">
                     <div class="nc-src">知识库 · RECSYS</div>
                     <div class="nc-title">fun-rec 推荐系统 — 模型结构与排序详解</div>
@@ -1351,7 +1419,7 @@
                   </div>
                 </div>
                 <div class="news-card">
-                  <div class="nc-img"><img src="books/python-page.png" alt="Python 入门内页"></div>
+                  <div class="nc-img"><img loading="lazy" decoding="async" src="books/python-page.png" alt="Python 入门内页"></div>
                   <div class="nc-body">
                     <div class="nc-src">知识库 · PYTHON</div>
                     <div class="nc-title">Python 入门 — 像计算机科学家一样思考 · 31 章</div>
@@ -1513,6 +1581,22 @@
       </div>
     </div>
 
+    <!-- 项目：LazyDraw -->
+    <div class="proj-feature reveal">
+      <div class="proj-body">
+        <div class="proj-kicker">AI DRAWING APP · 产品设计 + 后端</div>
+        <h3>LazyDraw · AI 绘图 APP</h3>
+        <p>
+          面向艺术家的 AI 绘图应用（独立产品方向，2023.03 — 2023.06）。独立完成产品设计与基于 FastAPI 的后端服务，
+          把 Stable Diffusion、ControlNet 与 SAM 组合成可控生成链路，并针对文生图中手部绘制效果差的问题做了工程化优化。
+        </p>
+        <div class="proj-tags">
+          <span class="ptag">FastAPI</span><span class="ptag">Stable Diffusion</span><span class="ptag">ControlNet</span><span class="ptag">SAM</span>
+          <span class="ptag hl">产品设计 + 后端全栈</span>
+        </div>
+      </div>
+    </div>
+
     <!-- 其他项目网格 -->
     <div class="proj-grid">
       <div class="proj-card reveal">
@@ -1560,14 +1644,43 @@
         <p>引入灵活的 Mask 画笔与橡皮擦，显著提升细节丰富图像的预标注精度（如精确标注猫的胡须），告别逐点调整。</p>
       </div>
 
+      <div class="mini-head reveal">EARLIER BUILDS · 早期完整项目（5）</div>
+      <div class="mini-grid">
+        <div class="mini-card reveal">
+          <div class="mini-idx">EARLY BUILD 01</div>
+          <h5>招聘网站</h5>
+          <p>岗位发布与简历投递的完整招聘平台，覆盖职位检索、投递流程与后台管理。</p>
+        </div>
+        <div class="mini-card reveal">
+          <div class="mini-idx">EARLY BUILD 02</div>
+          <h5>购物网站</h5>
+          <p>电商站主链路实现：商品浏览、购物车、订单生成与结算流程。</p>
+        </div>
+        <div class="mini-card reveal">
+          <div class="mini-idx">EARLY BUILD 03</div>
+          <h5>疫情监测平台</h5>
+          <p>多源数据接入的疫情监测看板，支持按地区与时间维度的趋势查询与可视化。</p>
+        </div>
+        <div class="mini-card reveal">
+          <div class="mini-idx">EARLY BUILD 04</div>
+          <h5>简易 Excel 软件</h5>
+          <p>桌面端表格工具，实现单元格编辑、公式解析与文件读写，还原表格软件的核心交互。</p>
+        </div>
+        <div class="mini-card reveal">
+          <div class="mini-idx">EARLY BUILD 05</div>
+          <h5>页面置换算法微课软件</h5>
+          <p>操作系统教学演示工具，逐帧模拟 FIFO / LRU / OPT 等置换算法的缺页过程。</p>
+        </div>
+      </div>
+
       <div class="proj-card reveal">
         <div class="pc-icon" style="background:var(--amber-soft);">
           <svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 l5 -5"/><path d="M14 4 l6 6 -9 9 -6 -6 z" opacity=".75"/><circle cx="18" cy="6" r="2.5" fill="#FBF0DC"/></svg>
         </div>
-        <h4>更多项目</h4>
+        <h4>源码与更多细节</h4>
         <div class="pc-meta">GitHub · Projects-Information</div>
-        <p>招聘网站、购物网站、疫情监测平台、简易 Excel 软件、页面置换算法微课辅助软件等。详见
-          <a href="https://github.com/Haozhe-Xing/Projects-Information" target="_blank" rel="noopener">GitHub 仓库 ↗</a>
+        <p>上述早期项目的完整源码、设计说明与运行方式均开源在 GitHub。详见
+          <a href="https://github.com/Haozhe-Xing/Projects-Information" target="_blank" rel="noopener">仓库 ↗</a>
         </p>
       </div>
     </div>
@@ -1579,7 +1692,7 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div class="section-eyebrow">03 / BOOKS</div>
-      <h2 class="section-title">技术著作<span class="en-sub">WRITING · 4 BOOKS</span></h2>
+      <h2 class="section-title">技术著作<span class="en-sub">WRITING · 5 BOOKS</span></h2>
     </div>
 
     <!-- 书架 -->
@@ -1588,23 +1701,23 @@
         <div class="shelf-books">
           <a class="shelf-book" href="#book-agent" style="width:78px;height:108px;transform:rotate(-2deg)">
             <span class="spine"></span>
-            <img src="books/cover-agent.svg" alt="从零开始学 Agent 封面" />
+            <img loading="lazy" decoding="async" src="books/cover-agent.svg" alt="从零开始学 Agent 封面" />
           </a>
           <a class="shelf-book" href="#book-cpp" style="width:74px;height:108px;transform:rotate(1deg)">
             <span class="spine"></span>
-            <img src="books/cover-cpp.svg" alt="C++ for Competitive Programming 封面" />
+            <img loading="lazy" decoding="async" src="books/cover-cpp.svg" alt="C++ for Competitive Programming 封面" />
           </a>
           <a class="shelf-book" href="#book-usaaio" style="width:74px;height:108px;transform:rotate(-1deg)">
             <span class="spine"></span>
-            <img src="books/cover-usaaio.svg" alt="USAAIO Mastery 封面" />
+            <img loading="lazy" decoding="async" src="books/cover-usaaio.svg" alt="USAAIO Mastery 封面" />
           </a>
           <a class="shelf-book" href="#book-funrec" style="width:74px;height:108px;transform:rotate(1.5deg)">
             <span class="spine"></span>
-            <img src="books/cover-funrec.svg" alt="推荐系统知识库封面" />
+            <img loading="lazy" decoding="async" src="books/cover-funrec.svg" alt="推荐系统知识库封面" />
           </a>
           <a class="shelf-book" href="#book-python" style="width:74px;height:108px;transform:rotate(-1.5deg)">
             <span class="spine"></span>
-            <img src="books/cover-python.svg" alt="Python 入门封面" />
+            <img loading="lazy" decoding="async" src="books/cover-python.svg" alt="Python 入门封面" />
           </a>
         </div>
         <div class="shelf-glow"></div>
@@ -1628,13 +1741,13 @@
 
     <div class="book-feature reveal" id="book-agent">
       <div class="book-feature-cover">
-        <img src="books/cover-agent.svg" alt="《从零开始学 Agent》封面" />
+        <img loading="lazy" decoding="async" src="books/cover-agent.svg" alt="《从零开始学 Agent》封面" />
       </div>
       <div class="book-feature-body">
         <div class="bf-sub">FLAGSHIP · 23 CHAPTERS · EN/中文</div>
         <h3>从零开始学 Agent</h3>
         <div class="bf-shot">
-          <img src="books/agent-page.png" alt="从零开始学 Agent 内页截图：Agent 架构核心章节" />
+          <img loading="lazy" decoding="async" src="books/agent-page.png" alt="从零开始学 Agent 内页截图：Agent 架构核心章节" />
         </div>
         <p>
           系统、全面、实战导向的 Agent 开发教程。从 LLM 基础到 ReAct、MemGPT、RAG、多智能体、Agentic RL —— <b>先讲机制再讲框架</b>，每章配有原创 SVG 架构图与可运行的 reference-agent（含工具、记忆、安全门、评估、FastAPI 与 16 个测试）。
@@ -1655,12 +1768,12 @@
       <div class="book-card reveal" id="book-cpp">
         <div class="book-shot">
           <div>
-            <div class="book-cover-wrap"><span class="book-cover-thumb"><img src="books/cover-cpp.svg" alt="C++ for Competitive Programming 封面" /></span></div>
+            <div class="book-cover-wrap"><span class="book-cover-thumb"><img loading="lazy" decoding="async" src="books/cover-cpp.svg" alt="C++ for Competitive Programming 封面" /></span></div>
             <div class="cover-label">COVER</div>
           </div>
           <div>
             <span class="shot-badge">FIG. BFS 图论 · 内页</span>
-            <img src="books/cpp-page.png" alt="C++ 竞赛书内页截图：BFS 章节" />
+            <img loading="lazy" decoding="async" src="books/cpp-page.png" alt="C++ 竞赛书内页截图：BFS 章节" />
           </div>
         </div>
         <div class="book-body">
@@ -1683,12 +1796,12 @@
       <div class="book-card reveal" id="book-usaaio">
         <div class="book-shot">
           <div>
-            <div class="book-cover-wrap"><span class="book-cover-thumb"><img src="books/cover-usaaio.svg" alt="USAAIO Mastery 封面" /></span></div>
+            <div class="book-cover-wrap"><span class="book-cover-thumb"><img loading="lazy" decoding="async" src="books/cover-usaaio.svg" alt="USAAIO Mastery 封面" /></span></div>
             <div class="cover-label">COVER</div>
           </div>
           <div>
             <span class="shot-badge">FIG. 注意力机制 · 内页</span>
-            <img src="books/usaaio-page.png" alt="USAAIO 书内页截图：Transformer 注意力机制章节" />
+            <img loading="lazy" decoding="async" src="books/usaaio-page.png" alt="USAAIO 书内页截图：Transformer 注意力机制章节" />
           </div>
         </div>
         <div class="book-body">
@@ -1710,12 +1823,12 @@
       <div class="book-card reveal" id="book-funrec">
         <div class="book-shot">
           <div>
-            <div class="book-cover-wrap"><span class="book-cover-thumb"><img src="books/cover-funrec.svg" alt="推荐系统知识库封面" /></span></div>
+            <div class="book-cover-wrap"><span class="book-cover-thumb"><img loading="lazy" decoding="async" src="books/cover-funrec.svg" alt="推荐系统知识库封面" /></span></div>
             <div class="cover-label">COVER</div>
           </div>
           <div>
             <span class="shot-badge">FIG. 记忆 vs 泛化 · 内页</span>
-            <img src="books/funrec-page.png" alt="推荐系统知识库内页截图：Wide&amp;Deep 模型章节" />
+            <img loading="lazy" decoding="async" src="books/funrec-page.png" alt="推荐系统知识库内页截图：Wide&amp;Deep 模型章节" />
           </div>
         </div>
         <div class="book-body">
@@ -1737,12 +1850,12 @@
       <div class="book-card reveal" id="book-python">
         <div class="book-shot">
           <div>
-            <div class="book-cover-wrap"><span class="book-cover-thumb"><img src="books/cover-python.svg" alt="Python 入门封面" /></span></div>
+            <div class="book-cover-wrap"><span class="book-cover-thumb"><img loading="lazy" decoding="async" src="books/cover-python.svg" alt="Python 入门封面" /></span></div>
             <div class="cover-label">COVER</div>
           </div>
           <div>
             <span class="shot-badge">FIG. 数据结构 · 内页</span>
-            <img src="books/python-page.png" alt="Python 入门书内页截图：数据结构章节" />
+            <img loading="lazy" decoding="async" src="books/python-page.png" alt="Python 入门书内页截图：数据结构章节" />
           </div>
         </div>
         <div class="book-body">
@@ -1782,16 +1895,16 @@
       <div class="pub-item reveal">
         <span class="pub-rank ccfb">CCF-B</span>
         <div class="pub-main">
-          <div class="pub-title">会议论文 · 第一作者</div>
-          <div class="pub-meta">计算机视觉方向 · <b>第一作者</b></div>
+          <div class="pub-title">CCF-B 类会议论文 · 第一作者</div>
+          <div class="pub-meta">计算机视觉方向 · 题名待正式发表后公布</div>
         </div>
         <div class="pub-cite">—</div>
       </div>
       <div class="pub-item reveal">
         <span class="pub-rank ccfa">CCF-A ×2</span>
         <div class="pub-main">
-          <div class="pub-title">会议论文两篇</div>
-          <div class="pub-meta">CCF-A 类会议 · <b>第二 / 第三作者</b></div>
+          <div class="pub-title">CCF-A 类会议论文两篇 · 合作作者</div>
+          <div class="pub-meta">第二 / 第三作者 · 题名待正式发表后公布</div>
         </div>
         <div class="pub-cite">—</div>
       </div>
@@ -1897,20 +2010,8 @@
         <div><div class="h-top">GRADUATE · 优秀毕业生</div><div class="h-name">上海市优秀毕业生 · 河北省优秀毕业生</div></div>
       </div>
       <div class="honor-card national reveal">
-        <div class="medal gold"><svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 h12 v4 a6 6 0 0 1 -12 0 z" fill="#FBF0DC"/><path d="M9 20 h6 M12 14 v6"/></svg></div>
-        <div><div class="h-top">NATIONAL · 第一名（满分）</div><div class="h-name">PAT 程序设计竞赛（C++）冠军</div></div>
-      </div>
-      <div class="honor-card national reveal">
         <div class="medal gold"><svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
         <div><div class="h-top">NATIONAL · 国家二等奖</div><div class="h-name">全国计算机设计大赛</div></div>
-      </div>
-      <div class="honor-card national reveal">
-        <div class="medal gold"><svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
-        <div><div class="h-top">NATIONAL · 国家级银奖</div><div class="h-name">天梯赛大赛（C++）</div></div>
-      </div>
-      <div class="honor-card national reveal">
-        <div class="medal gold"><svg viewBox="0 0 24 24" fill="none" stroke="#C77D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
-        <div><div class="h-top">NATIONAL · 国家二等奖</div><div class="h-name">蓝桥杯（软件 A 类）</div></div>
       </div>
       <div class="honor-card prov reveal">
         <div class="medal teal"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
@@ -1918,15 +2019,42 @@
       </div>
       <div class="honor-card prov reveal">
         <div class="medal teal"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
-        <div><div class="h-top">PROVINCIAL · 一等奖 ×2</div><div class="h-name">蓝桥杯河北省一等奖</div></div>
-      </div>
-      <div class="honor-card prov reveal">
-        <div class="medal teal"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
         <div><div class="h-top">PROVINCIAL · 一等奖</div><div class="h-name">全国「创新创意创业」挑战赛省赛</div></div>
       </div>
-      <div class="honor-card prov reveal">
-        <div class="medal teal"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8C7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 L7 22 l5 -3 5 3 -1.5 -8"/></svg></div>
-        <div><div class="h-top">PROVINCIAL · 二等奖</div><div class="h-name">河北省大学生程序设计竞赛（CCPC）</div></div>
+    </div>
+
+    <!-- 竞赛成绩细分 -->
+    <div class="rank-group reveal">
+      <div class="rank-head">
+        <span class="rank-title">算法竞赛 / 程序设计</span>
+        <span class="rank-note">C++ 为主 · 国家级 3 项 · 省级 2 项</span>
+      </div>
+      <div class="rank-list">
+        <div class="rank-row">
+          <span class="rank-badge nat">NATIONAL</span>
+          <span class="rank-name">PAT 程序设计竞赛（C++）</span>
+          <span class="rank-detail">第一名 · 满分</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-badge nat">NATIONAL</span>
+          <span class="rank-name">天梯赛大赛（C++）</span>
+          <span class="rank-detail">国家级银奖</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-badge nat">NATIONAL</span>
+          <span class="rank-name">蓝桥杯（软件 A 类）</span>
+          <span class="rank-detail">国家二等奖</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-badge pro">PROVINCIAL</span>
+          <span class="rank-name">蓝桥杯河北省赛</span>
+          <span class="rank-detail">一等奖 ×2</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-badge pro">PROVINCIAL</span>
+          <span class="rank-name">河北省大学生程序设计竞赛（CCPC）</span>
+          <span class="rank-detail">二等奖</span>
+        </div>
       </div>
     </div>
     <div class="honor-more reveal">+ 30 余项校级奖项 · 完整列表见简历</div>
